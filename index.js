@@ -93,7 +93,7 @@ const mdia = fs.readFileSync ('./media/Profile.png')
 const starts = async (Hikari = new WAConnection()) => {
 Hikari.version = [ 2, 2140, 12 ]
 	Hikari.logger.level = 'warn'
-	console.log(color(figlet.textSync('Hikari BOT', {
+	console.log(color(figlet.textSync('LolitaBot', {
 		font: 'Standard',
 		horizontalLayout: 'default',
 		vertivalLayout: 'default',
@@ -114,7 +114,7 @@ Hikari.version = [ 2, 2140, 12 ]
 	// Menghubungkan
 	fs.existsSync(`./${setting.sessionName}.json`) && Hikari.loadAuthInfo(`./${setting.sessionName}.json`)
 	Hikari.on('connecting', () => {
-		console.log(color('[ Manik Gans ]', 'cyan'), color('Menghubungkan....'));
+		console.log(color('[ Trito ]', 'cyan'), color('Menghubungkan....'));
 	})
 
 	//connect 
@@ -135,8 +135,8 @@ Hikari.version = [ 2, 2140, 12 ]
 		timeoutMs: 30 * 1000
 	})
 	fs.writeFileSync(`./${setting.sessionName}.json`, JSON.stringify(Hikari.base64EncodedAuthInfo(), null, '\t'))
-    Hikari.updateProfileName('Fans Manik')
-    Hikari.setStatus('Babunya Arya Manik\n⚠️AUTO REJECT CALL⚠️\n\nJangan telepon bot. ☎️\nSanksi: *❎ SOFT BLOCK*')
+    Hikari.updateProfileName('LOLITA')
+    Hikari.setStatus('LOLITA BOT\n⚠️AUTO REJECT CALL⚠️\n\nJangan telepon bot. ☎️\nSanksi: *❎ SOFT BLOCK*')
    
 	
 	//AutoRejectCallFunction
