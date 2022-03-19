@@ -5,15 +5,18 @@ const {
   MessageOptions,
   Mimetype,
   WALocationMessage,
+  WAMessageProto,
   WA_MESSAGE_STUB_TYPES,
   WA_DEFAULT_EPHEMERAL,
   ReconnectMode,
   ProxyAgent,
+  prepareMessageFromContent, 
   ChatModification,
   GroupSettingChange,
   waChatKey,
   mentionedJid,
   processTime,
+  relayWAMessage,
   Browsers,
 } = require("@adiwajshing/baileys")
 const {
@@ -10336,114 +10339,4 @@ return arr_ttt = naa
 }
 ucapan = `*🎳 Game Tictactoe 🎲*
 
-Player2 @${tty.player2.split('@')[0]}=⭕
-Player1 @${tty.player1.split('@')[0]}=❎
-
-Giliran = @${tty.player2.split('@')[0]}
-
-${ttt}`
-Hikari.sendMessage(from, ucapan, text, {quoted: freply, contextInfo:{mentionedJid: [tty.player1,tty.player2]}})
-}
-if (isTTT && isPlayer2){
-nuber = parseInt(budy)
-if (isNaN(nuber)) return
-if (nuber < 1 || nuber > 9) return reply('Masukan Angka Dengan Benar')
-main = arr_ttt.filter(hjh => hjh.id.includes(from)) 
-if (!tttawal.includes(main[0].angka[nuber])) return reply('Udah Di Isi, Isi Yang Lain Gan')
-if (main[0].gilir.includes(sender)) return reply('Tunggu Giliran Gan')
-s = '⭕'
-main[0].angka[nuber] = s
-main[0].gilir = main[0].player2
-naa = arr_ttt.filter(hhg => !hhg.id.includes(from))
-arr_ttt = naa
-pop = main[0]
-arr_ttt.push(pop)
-tto = arr_ttt.filter(hgh => hgh.id.includes(from))
-tty = tto[0]
-angka = tto[0].angka
-ttt = `${angka[1]}${angka[2]}${angka[3]}\n${angka[4]}${angka[5]}${angka[6]}\n${angka[7]}${angka[8]}${angka[9]}`
-
-ucapmenang = () => {
-ucapan1 = `*🎳 Result Game Tictactoe 🎲*
-
-*Yeyyy Permainan Di Menangkan Oleh* @${tty.player2.split('@')[0]}\n
-*Ingin bermain lagi? ${prefix}tictactoe*`
-ucapan2 = `*🎳 Game Tictactoe 🎲*
-
-*Hasil Akhir:*
-
-${ttt}`
-Hikari.sendMessage(from, ucapan1, text, {quoted:Arya, contextInfo:{mentionedJid: [tty.player2]}})
-naa = arr_ttt.filter(hhg => !hhg.id.includes(from))
-return arr_ttt = naa
-}
-
-if (angka[1] == s && angka[2] == s && angka[3] == s) return ucapmenang()
-if (angka[1] == s && angka[4] == s && angka[7] == s) return ucapmenang()
-if (angka[1] == s && angka[5] == s && angka[9] == s) return ucapmenang()
-if (angka[2] == s && angka[5] == s && angka[8] == s) return ucapmenang()
-if (angka[4] == s && angka[5] == s && angka[6] == s) return ucapmenang()
-if (angka[7] == s && angka[8] == s && angka[9] == s) return ucapmenang()
-if (angka[3] == s && angka[5] == s && angka[7] == s) return ucapmenang()
-if (angka[3] == s && angka[6] == s && angka[9] == s) return ucapmenang()
-if (!ttt.includes('1️⃣') && !ttt.includes('2️⃣') && !ttt.includes('3️⃣') && ! ttt.includes('4️⃣') && !
-ttt.includes('5️⃣') && !
-ttt.includes('6️⃣') && ! ttt.includes('7️⃣') && ! ttt.includes('8️⃣') && ! ttt.includes('9️⃣')){
-ucapan1 = `*??Result Game Tictactoe 🎲*
-
-*_Permainan Seri🗿👌*`
-ucapan2 = `*?? Result Game Tictactoe 🎲*
-
-*Hasil Akhir:*
-
-${ttt}`
-reply(ucapan1)
-naa = arr_ttt.filter(hhg => !hhg.id.includes(from))
-return arr_ttt = naa
-}
-ucapan = `*🎳 Game Tictactoe 🎲*
-
-Player1 @${tty.player1.split('@')[0]}=⭕
-Player2 @${tty.player2.split('@')[0]}=❎
-   
-Giliran = @${tty.player1.split('@')[0]}
-
-${ttt}`
- Hikari.sendMessage(from, ucapan, text, {quoted: freply, contextInfo:{mentionedJid: [tty.player1,tty.player2]}})
-} else {
-}
-if (/^=?>/.test(budy) && (isOwner || Arya.key.fromMe )){
-
-let parse = /^=>/.test(budy) ? budy.replace(/^=>/,'return') : budy.replace(/^>/,'')
-
-try{
-
-let evaluate = await eval(`;(async () => {${parse} })()`).catch(e => { return e })
-
-return reply(require('util').format(evaluate))
-
- } catch(e){
-
- return reply(require('util').format(e))
-
-}
-}
-if (isCmd) {
-                        rpg = `Maaf Kak, Command *${prefix}${command}* Tidak Ada Di List *${prefix}menu*`
-                        sendButMessage(from, rpg, `${botName} By ${ownerName}`, [{buttonId: `${prefix}menu`,buttonText: {displayText: `☸ BACK TO MENU `,},type: 1}])
-                    }
-  } 
-
-  } catch (e) {
-    e = String(e)
-    if (!e.includes("this.isZero")) {
-    	if (!e.includes("jid is not defined")) {
-    	if (!e.includes("Cannot read properties of undefined (reading 'endsWith')")){
-  console.log('Message : %s', color(e, 'cyan'))
-        }
-  }
-}
-}
- }
-
- 
+Player2 @${tty.play
