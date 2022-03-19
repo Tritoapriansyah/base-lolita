@@ -138,7 +138,7 @@ rplimitawal = '25'//Ini Bonus Daftar RP
  batterylevel = 'TIDAK TERDETEKSI'
  charging = 'TIDAK TERDETEKSI'
 //===SETTING BOT BY MANIK===//
-let multipref = false
+let multipref = true
 let offline = false
 let waktu = Date.now()
 let banChats = true
