@@ -1651,7 +1651,7 @@ break
 case 'tesb':
 buttonWithText(from, `Hai ${pushname !== undefined ? pushname : 'Kak'} ${ucapanWaktu}, Aku adalah *${botName}*
         
-Bot ini adalah Beta *Multi-Device* WhatsApp. Jika menemukan bug/eror pada bot ini, silahkan lapor kepada ${prefix}owner`, `WhatsApp Bot Â© 2020`, templateButtons)
+Bot WhatsApp. Jika menemukan bug/eror pada bot ini, silahkan lapor kepada ${prefix}owner`, `WhatsApp Bot Â© 2020`, templateButtons)
         break
 case 'sendbug':
 if (!isOwner && !fromMe) return reply(mess.OnlyOwner)
