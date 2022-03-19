@@ -10340,3 +10340,5 @@ return arr_ttt = naa
 ucapan = `*🎳 Game Tictactoe 🎲*
 
 Player2 @${tty.play}
+
+break
