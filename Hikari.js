@@ -138,7 +138,6 @@ rplimitawal = '25'//Ini Bonus Daftar RP
  batterylevel = 'TIDAK TERDETEKSI'
  charging = 'TIDAK TERDETEKSI'
 //===SETTING BOT BY MANIK===//
-let multipref = true
 let offline = false
 let waktu = Date.now()
 let banChats = true
@@ -296,10 +295,7 @@ const isAntidel = isGroup ? antidel.includes(from) : false;
 
 const type = Object.keys(Arya.message)[0]        
 const cmd = (type === 'conversation' && Arya.message.conversation) ? Arya.message.conversation : (type == 'imageMessage') && Arya.message.imageMessage.caption ? Arya.message.imageMessage.caption : (type == 'videoMessage') && Arya.message.videoMessage.caption ? Arya.message.videoMessage.caption : (type == 'extendedTextMessage') && Arya.message.extendedTextMessage.text ? Arya.message.extendedTextMessage.text : ''.slice(1).trim().split(/ +/).shift().toLowerCase()
-const prefix = setting.prefix
-if(multipref = true) {
 const prefix = /^[°!●π÷×¶∆£¢€¥®™=|~#%^&.?/\\©^z+,;]/.test(cmd) ? cmd.match(/^[°!●π÷×¶∆£¢€¥®™=|~#%^&.?/\\©^z+,;]/gi) : '.'
-}
 body = (type === 'conversation' && Arya.message.conversation.startsWith(prefix)) ? Arya.message.conversation : (type == 'imageMessage') && Arya.message[type].caption.startsWith(prefix) ? Arya.message[type].caption : (type == 'videoMessage') && Arya.message[type].caption.startsWith(prefix) ? Arya.message[type].caption : (type == 'extendedTextMessage') && Arya.message[type].text.startsWith(prefix) ? Arya.message[type].text : (type == 'listResponseMessage') && Arya.message[type].singleSelectReply.selectedRowId ? Arya.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && Arya.message[type].selectedButtonId ? Arya.message[type].selectedButtonId : (type == 'stickerMessage') && (getCmd(Arya.message[type].fileSha256.toString('base64')) !== null && getCmd(Arya.message[type].fileSha256.toString('base64')) !== undefined) ? getCmd(Arya.message[type].fileSha256.toString('base64')) : ""
 budy = (type === 'conversation') ? Arya.message.conversation : (type === 'extendedTextMessage') ? Arya.message.extendedTextMessage.text : ''
 bodi = (type === 'conversation') ? Arya.message.conversation : (type === 'extendedTextMessage') ? Arya.message.extendedTextMessage.text : ''
