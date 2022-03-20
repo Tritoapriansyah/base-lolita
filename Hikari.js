@@ -2742,7 +2742,22 @@ thumbnail: arganz,
 mediaUrl: "https://youtu.be/KAglIQ3bUls",
 sourceUrl: "https://youtu.be/KAglIQ3bUls"
 }}, quoted: freply} )
-               Hikari.relayWAMessage(prep)
+hikari.sendMessage(from, {"contentText": `${menu}`,"footerText": `${setting.botName} By @${setting.ownerName}`,
+"buttons":[{buttonId: `${prefix}command`, buttonText: {displayText: '⎙Command'}, type: 1},{buttonId: `${prefix}Rules`, buttonText: {displayText: 'S&K Bot'}, type: 1},{buttonId: `${prefix}owner`, buttonText: {displayText: 'Owner'}, type: 1}],
+"headerType": "DOCUMENT", "documentMessage": {
+            "url": "https://mmg.whatsapp.net/d/f/Ano5cGYOFQnC51uJaqGBWiCrSJH1aDCi8-YPQMMb1N1y.enc",
+            "mimetype": "application/pdf",
+            "title": "LolitaBot.pdf", // nama.pdf
+            "fileSha256": "8Xfe3NQDhjwVjR54tkkShLDGrIFKR9QT5EsthPyxDCI=",
+            "fileLength": "999999999999",
+            "pageCount": 999,
+            "mediaKey": "XWv4hcnpGY51qEVSO9+e+q6LYqPR3DbtT4iqS9yKhkI=",
+            "fileName": "Lolita whatsapp bot", // file name
+            "fileEncSha256": "NI9ykWUcXKquea4BmH7GgzhMb3pAeqqwE+MTFbH/Wk8=",
+            "directPath": "/v/t62.7119-24/35160407_568282564396101_3119299043264875885_n.enc?ccb=11-4&oh=d43befa9a76b69d757877c3d430a0752&oe=61915CEC",
+            "mediaKeyTimestamp": "1634472176",
+            "jpegThumbnail": "fs.readFileSync('./logonya.jpeg')"
+  }}, MessageType.buttonsMessage,{ quoted: Arya, sendEphemeral: true, contextInfo:{"forwardingScore":999,"isForwarded":true, "externalAdReply":{"title": `Hai Kak ${pushname}`, "body": `Lolita Botz`, mediaType: 2, "thumbnailUrl": "https://cdn-image.hipwee.com/wp-content/uploads/2021/03/hipwee-gojo_satoru_by_chuutadesu_deb0dr7-fullview-750x422.jpg","previewType": "VIDEO","mediaUrl": `https://youtu.be/dQw4w9WgXcQ`}}})
 		break
                
 case 'f':
@@ -9354,6 +9369,8 @@ Note: Hati-Hati Saat Sedang Berpetualang, Banyak Rintangan Untuk Anda`
 ➸ *Harga*: 20000 Crystal
 ➸ *Sisa Crystal*: ${userCrystal}
 `)
+premium.addPremiumUser(sender, 30d, _premium)
+reply(`*「 PENUKARAN BERHASIL 」*\n\n➸ *Player*: ${getReason}\n➸ *Expired*: 30 day\n*Harga*: 20000 Crystal\n*Sisa Crystal*: ${userCrystal}`)
 rplimitAdd(sender, rpliminya)
           break
           }
