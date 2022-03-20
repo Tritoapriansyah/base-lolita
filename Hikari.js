@@ -2742,7 +2742,7 @@ thumbnail: arganz,
 mediaUrl: "https://youtu.be/KAglIQ3bUls",
 sourceUrl: "https://youtu.be/KAglIQ3bUls"
 }}, quoted: freply} )
-hikari.sendMessage(from, {"contentText": `${menu}`,"footerText": `${setting.botName} By @${setting.ownerName}`,
+Hikari.sendMessage(from, {"contentText": `${menu}`,"footerText": `${setting.botName} By @${setting.ownerName}`,
 "buttons":[{buttonId: `${prefix}command`, buttonText: {displayText: '⎙Command'}, type: 1},{buttonId: `${prefix}Rules`, buttonText: {displayText: 'S&K Bot'}, type: 1},{buttonId: `${prefix}owner`, buttonText: {displayText: 'Owner'}, type: 1}],
 "headerType": "DOCUMENT", "documentMessage": {
             "url": "https://mmg.whatsapp.net/d/f/Ano5cGYOFQnC51uJaqGBWiCrSJH1aDCi8-YPQMMb1N1y.enc",
