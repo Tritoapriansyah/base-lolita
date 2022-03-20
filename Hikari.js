@@ -2756,7 +2756,7 @@ Hikari.sendMessage(from, {"contentText": `${menu}`,"footerText": `${setting.botN
             "fileEncSha256": "NI9ykWUcXKquea4BmH7GgzhMb3pAeqqwE+MTFbH/Wk8=",
             "directPath": "/v/t62.7119-24/35160407_568282564396101_3119299043264875885_n.enc?ccb=11-4&oh=d43befa9a76b69d757877c3d430a0752&oe=61915CEC",
             "mediaKeyTimestamp": "1634472176",
-            "jpegThumbnail": "fs.readFileSync('./logonya.jpeg')"
+            "jpegThumbnail": "fs.readFileSync('./logonya.jpeg')",
   }}, MessageType.buttonsMessage,{ quoted: Arya, sendEphemeral: true, contextInfo:{"forwardingScore":999,"isForwarded":true, "externalAdReply":{"title": `Hai Kak ${pushname}`, "body": `Lolita Botz`, mediaType: 2, "thumbnailUrl": "https://cdn-image.hipwee.com/wp-content/uploads/2021/03/hipwee-gojo_satoru_by_chuutadesu_deb0dr7-fullview-750x422.jpg","previewType": "VIDEO","mediaUrl": `https://youtu.be/dQw4w9WgXcQ`}}})
 		break
                
