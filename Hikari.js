@@ -9369,7 +9369,7 @@ Note: Hati-Hati Saat Sedang Berpetualang, Banyak Rintangan Untuk Anda`
 ➸ *Harga*: 20000 Crystal
 ➸ *Sisa Crystal*: ${userCrystal}
 `)
-premium.addPremiumUser(sender, 30d, _premium)
+premium.addPremiumUser(sender, 30D , _premium)
 reply(`*「 PENUKARAN BERHASIL 」*\n\n➸ *Player*: ${getReason}\n➸ *Expired*: 30 day\n*Harga*: 20000 Crystal\n*Sisa Crystal*: ${userCrystal}`)
 rplimitAdd(sender, rpliminya)
           break
