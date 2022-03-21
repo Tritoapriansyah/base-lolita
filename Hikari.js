@@ -444,7 +444,7 @@ const fstatus = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(fro
 const ftrol = {
 const math = (teks) => {
 return Math.floor(teks)
-}
+}}
 const kick = function(from, orangnya){
 for (let i of orangnya){
 Hikari.groupRemove(from, [i])
