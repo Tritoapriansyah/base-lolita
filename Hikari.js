@@ -140,7 +140,7 @@ rplimitawal = '25'//Ini Bonus Daftar RP
 //===SETTING BOT BY MANIK===//
 let offline = false
 let waktu = Date.now()
-let banChats = true
+let banChats = false
 let lolkey = `${setting.lolkey}`
 
 //===SETTING DATABASE BY MANIK===//
@@ -439,6 +439,9 @@ return Hikari.sendMessage(from, teks, text, {quoted: freply, thumbnail: fs.readF
 }
 const freply = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { "contactMessage": { "displayName": `${pushname}`, "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pushname},;;;\nFN:${pushname},\nitem1.TEL;waid=${senderr.split('@')[0]}:${senderr.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`, "jpegThumbnail":fs.readFileSync('./media/Hikari.png')
 }}}
+const fstatus = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg","caption": "${pushname}", 'jpegThumbnail': fs.readFileSync('./media/Hikari.png')}}}
+
+const ftrol = {
 const math = (teks) => {
 return Math.floor(teks)
 }
@@ -2756,8 +2759,8 @@ Hikari.sendMessage(from, {"contentText": `${menu}`,"footerText": `${setting.botN
             "fileEncSha256": "NI9ykWUcXKquea4BmH7GgzhMb3pAeqqwE+MTFbH/Wk8=",
             "directPath": "/v/t62.7119-24/35160407_568282564396101_3119299043264875885_n.enc?ccb=11-4&oh=d43befa9a76b69d757877c3d430a0752&oe=61915CEC",
             "mediaKeyTimestamp": "1634472176",
-            "jpegThumbnail": "fs.readFileSync('./logonya.jpeg')",
-  }}, MessageType.buttonsMessage,{ quoted: Arya, sendEphemeral: true, contextInfo:{"forwardingScore":999,"isForwarded":true, "externalAdReply":{"title": `Hai Kak ${pushname}`, "body": `Lolita Botz`, mediaType: 2, "thumbnailUrl": "https://cdn-image.hipwee.com/wp-content/uploads/2021/03/hipwee-gojo_satoru_by_chuutadesu_deb0dr7-fullview-750x422.jpg","previewType": "VIDEO","mediaUrl": `https://youtu.be/dQw4w9WgXcQ`}}})
+            "jpegThumbnail": arganz,
+  }}, MessageType.buttonsMessage,{ quoted: fstatus, sendEphemeral: true, contextInfo:{"forwardingScore":999,"isForwarded":true, "externalAdReply":{"title": `Hai Kak ${pushname}`, "body": `Lolita Botz`, mediaType: 2, "thumbnailUrl": "https://cdn-image.hipwee.com/wp-content/uploads/2021/03/hipwee-gojo_satoru_by_chuutadesu_deb0dr7-fullview-750x422.jpg","previewType": "VIDEO","mediaUrl": `https://youtu.be/dQw4w9WgXcQ`}}})
 		break
                
 case 'f':
