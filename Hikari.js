@@ -441,10 +441,19 @@ const freply = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from
 }}}
 const fstatus = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg","caption": "${pushname}", 'jpegThumbnail': fs.readFileSync('./media/Hikari.png')}}}
 
-const ftrol = {
-const math = (teks) => {
-return Math.floor(teks)
-}}
+const ftrol = {key : {participant : '0@s.whatsapp.net'},
+       message: {
+                    orderMessage: {
+                            itemCount : 123,
+                            status: 1,
+                            surface : 1,
+                            message: `${ucapanWaktu}, ${pushname}`, 
+                            orderTitle: `Jangan Lupa Nafas Bro`,
+                            thumbnail: fakeimage, //Gambarnye
+                            sellerJid: '6285888258313@s.whatsapp.net' 
+                          }
+                        }
+                      }
 const kick = function(from, orangnya){
 for (let i of orangnya){
 Hikari.groupRemove(from, [i])
