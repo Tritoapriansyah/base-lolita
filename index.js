@@ -136,7 +136,9 @@ Hikari.version = [ 2, 2140, 12 ]
 	})
 	fs.writeFileSync(`./${setting.sessionName}.json`, JSON.stringify(Hikari.base64EncodedAuthInfo(), null, '\t'))
     Hikari.updateProfileName('LOLITA')
-    Hikari.setStatus('LOLITA BOT\n⚠️AUTO REJECT CALL⚠️\n\nJangan telepon bot. ☎️\nSanksi: *❎ SOFT BLOCK*')
+	setInterval(() => {
+ Hikari.setStatus(`PREFIX: multi | BOT AKTIF: ${runtime}\nLOLITA BOT\n⚠️AUTO REJECT CALL⚠️\n\nJangan telepon bot. ☎️\nSanksi: *❎ SOFT BLOCK*`).catch((_) => _)
+},1000)
    
 	
 	//AutoRejectCallFunction
