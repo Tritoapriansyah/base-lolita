@@ -103,6 +103,16 @@ Hikari.version = [ 2, 2140, 12 ]
 	console.log(color('[Hikari System]', 'cyan'), color('Bot Telah online Sekarang!', 'yellow'))
 	console.log(color('[Hikari System]', 'cyan'), color('Selamat Datang Kembali, Owner! Semoga Kamu Bahagia~', 'yellow'))
 	Hikari.browserDescription = ["HikariBot", "Chrome", "3.0.0"];
+	
+global.User = require('./user.js');
+	
+const url = "mongodb+srv://devn:ma3c140175@devn.je2td.mongodb.net/devn?retryWrites=true&w=majority";
+const { Database } = require('quickmongo');
+global.db = new Database(url);
+global.tgam = db.createModel('tebakgambar')
+db.on("ready", () => {
+  console.log('DB connect banh')
+})
 
 
 	// Menunggu QR
