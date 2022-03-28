@@ -346,12 +346,16 @@ players1.push(t.player1)
 players2.push(t.player2)
 gilir.push(t.gilir)
 }
+const findContact = async (contact) => {
+let findContact = await db.findOne({ nowa: contact });
+return findContact;
+};
 const isTTT = isGroup ? idttt.includes(from) : false
 isPlayer1 = isGroup ? players1.includes(sender) : false
 isPlayer2 = isGroup ? players2.includes(sender) : false
 const isBadword = isGroup ? grupbadword.includes(from) : false
 const isOwner = ownerNumber.includes(senderr)
-const isRegister = register.includes(sender)
+const isRegister = findContact(sender)
 const isPremium = premium.checkPremiumUser(sender, _premium)
 const isSewa = _sewa.checkSewaGroup(from, sewa)
 const isAfkOn = afk.checkAfkUser(sender, _afk)
@@ -779,16 +783,12 @@ const daftar1 = `Hai kak  ${pushname} ${ucapanWaktu} \n\╭◪ *「 DAFTAR DULU 
 ╰───────────────╮  
 ╭───────────────╯
 ├❏ Cara daftar sekarang gampang!
-├❏ masuk ke web ini
-├❏ https://lolita-login.herokuapp.com/register
-├❏ masukan nomor wa 62xxx
-├❏ masukan pasword dan pastikan benar 
-├❏ dan klik masuk
+├❏ klik saja tombol yang di bawah
 ├❏ selamat anda telah berhasil membuat akun
 ├❏ Nb : Jan Spam Bot!
 ╰───────────────╯ `
-const daftar2 = '```Klik Tombol Di Bawah Untuk bertanya ke owner```'
-const daftar3 = [{buttonId: `${prefix}owner`,buttonText: {displayText: `⬡ OWNER `,},type: 1,},]
+const daftar2 = '```Klik Tombol Di Bawah Untuk daftar```'
+const daftar3 = [{buttonId: `${prefix}verify`,buttonText: {displayText: `⬡ DAFTAR `,},type: 1,},]
 const nomenu = [{buttonId: `${prefix}menu`,buttonText: {displayText: `⬡ MENU `,},type: 1,},]
 
 ///////< PREMIUM BUTTON BY IKY > ////////
@@ -5905,25 +5905,23 @@ Silahkan Pilih Salah Satu!
               reply(txtnyee)
               break
               case 'verify':
-              
 if (isRegistered) return reply('Akun kamu sudah terverfikasi')
-const serialUser = createSerial(18)
+ .then(async (res) => {
+              if (res === null) {
+                await db.create({ nowa: from });
+                const serialUser = createSerial(18)
            try {
                 ppimg = await Hikari.getProfilePicture(`${sender.split('@')[0]}@c.us`)
                 } catch {
                 ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
               }
           veri = sender
-          _registered.push(sender)
-          fs.writeFileSync('./database/user/registered.json', JSON.stringify(_registered))
-          addRegisteredUser(sender, serialUser)
            const anuu = `「 *PENDAFTARAN USER* 」
 *Terimakasih Sudah Mendaftarkan Diri Dalam Database Bot WhatsApp*
 
 *🌹 Nama :* ${pushname}
 *🌹 API :* +${sender.split('@')[0]}
 *🌹 Serial:* ${serialUser}
-*🌹 Total:* ${_registered.length} Pengguna
 
 *「 ${setting.botName} 」*`
          kariown = await getBuffer(`http://hadi-api.herokuapp.com/api/card/verify?nama=${encodeURI(pushname)}&member=${_registered.length}&seri=${serialUser}&pp=${ppimg}&bg=${ppimg}`)
@@ -5933,8 +5931,9 @@ const serialUser = createSerial(18)
               contentText:`${anuu}`,buttons,headerType:4}
               prep = await Hikari.prepareMessageFromContent(from,{buttonsMessage},{quoted: freply})
               Hikari.relayWAMessage(prep)
-           console.log(color('[REGISTER]'), color(time, 'yellow'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName))
-      // console.log(e)
+           console.log(color('[REGISTER]'), color(time, 'yellow'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName));
+              }}
+
         break
 case 'sfire1':{
                 
