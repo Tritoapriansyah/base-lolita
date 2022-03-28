@@ -787,7 +787,7 @@ const daftar1 = `Hai kak  ${pushname} ${ucapanWaktu} \n\╭◪ *「 DAFTAR DULU 
 ├❏ selamat anda telah berhasil membuat akun
 ├❏ Nb : Jan Spam Bot!
 ╰───────────────╯ `
-const daftar2 = '```Klik Tombol Di Bawah Untuk Verify```'
+const daftar2 = '```Klik Tombol Di Bawah Untuk bertanya ke owner```'
 const daftar3 = [{buttonId: `${prefix}owner`,buttonText: {displayText: `⬡ OWNER `,},type: 1,},]
 const nomenu = [{buttonId: `${prefix}menu`,buttonText: {displayText: `⬡ MENU `,},type: 1,},]
 
