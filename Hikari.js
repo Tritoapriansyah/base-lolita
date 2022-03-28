@@ -5908,7 +5908,7 @@ Silahkan Pilih Salah Satu!
 await findContact(sender)
  .then(async (res) => {
               if (res === null) {
-                await db.create({ nowa: from });
+                await db.create({ nowa: sender });
                 const serialUser = createSerial(18)
            try {
                 ppimg = await Hikari.getProfilePicture(`${sender.split('@')[0]}@c.us`)
