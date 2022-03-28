@@ -5905,7 +5905,7 @@ Silahkan Pilih Salah Satu!
               reply(txtnyee)
               break
               case 'verify':
-if (isRegistered) return reply('Akun kamu sudah terverfikasi')
+await findContact(sender)
  .then(async (res) => {
               if (res === null) {
                 await db.create({ nowa: from });
@@ -5932,7 +5932,10 @@ if (isRegistered) return reply('Akun kamu sudah terverfikasi')
               prep = await Hikari.prepareMessageFromContent(from,{buttonsMessage},{quoted: freply})
               Hikari.relayWAMessage(prep)
            console.log(color('[REGISTER]'), color(time, 'yellow'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName));
-              }
+              } else {
+		      reply('Akun kamu sudah terverfikasi')
+	      } 
+})
 
         break
 case 'sfire1':{
