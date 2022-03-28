@@ -5932,7 +5932,7 @@ if (isRegistered) return reply('Akun kamu sudah terverfikasi')
               prep = await Hikari.prepareMessageFromContent(from,{buttonsMessage},{quoted: freply})
               Hikari.relayWAMessage(prep)
            console.log(color('[REGISTER]'), color(time, 'yellow'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName));
-              }}
+              }
 
         break
 case 'sfire1':{
