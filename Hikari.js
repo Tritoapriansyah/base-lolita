@@ -779,11 +779,16 @@ const daftar1 = `Hai kak  ${pushname} ${ucapanWaktu} \n\╭◪ *「 DAFTAR DULU 
 ╰───────────────╮  
 ╭───────────────╯
 ├❏ Cara daftar sekarang gampang!
-├❏ Klik aja verify
+├❏ masuk ke web ini
+├❏ https://lolita-login.herokuapp.com/register
+├❏ masukan nomor wa 62xxx
+├❏ masukan pasword dan pastikan benar 
+├❏ dan klik masuk
+├❏ selamat anda telah berhasil membuat akun
 ├❏ Nb : Jan Spam Bot!
 ╰───────────────╯ `
 const daftar2 = '```Klik Tombol Di Bawah Untuk Verify```'
-const daftar3 = [{buttonId: `${prefix}verify`,buttonText: {displayText: `⬡ VERIFY `,},type: 1,},]
+const daftar3 = [{buttonId: `${prefix}owner`,buttonText: {displayText: `⬡ OWNER `,},type: 1,},]
 const nomenu = [{buttonId: `${prefix}menu`,buttonText: {displayText: `⬡ MENU `,},type: 1,},]
 
 ///////< PREMIUM BUTTON BY IKY > ////////
