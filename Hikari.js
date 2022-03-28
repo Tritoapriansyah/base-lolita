@@ -6230,7 +6230,6 @@ Wa.me/${setting.owner}`
            case 'ytmp3':
            case 'playy':
 case 'lagu':
-if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
 if (args.length < 1) return reply('Judul/Link Nya Mana?')
 ini_link = args.join(" ")
 ini = await fetchJson(`https://api-yogipw.herokuapp.com/api/yt/playmp3?query=${ini_link}`)
@@ -6241,7 +6240,6 @@ Hikari.sendMessage(from, rew, image, { quoted: Arya, caption: ini_txt })
 Hikari.sendMessage(from, res, audio)
 break
       case 'ytmp3ror':
-            if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
             if (args.length < 1) return reply('Link Nya Mana?')
             if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
             teks = args.join(' ')
@@ -6265,7 +6263,6 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 })
             break
             case 'ytmp4':
-if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
             case 'play2':   
 case 'ytmp4':   
           if (args.length < 1) return reply('*Masukan judul nya?*')
@@ -8191,6 +8188,8 @@ break
               mentions(txti, arr, true)
               break
        case 'kickall': // Anti Banned
+		if (!isGroup) return reply('GROUP ONLY')
+if (!isGroupAdmins)return reply('ONLY ADMIN')
               for (let i of groupMembers) {
               await kickMember(from, [i.jid])
 }
@@ -8218,6 +8217,8 @@ break
 }
              break
       case 'hidetag':
+		if (!isGroup) return reply('GROUP ONLY')
+		if (!isGroupAdmins)return reply('ONLY ADMIN')
              try {
              quotedText = Arya.message.extendedTextMessage.contextInfo.quotedMessage.conversation
              hideTag(from, `${quotedText}`)
