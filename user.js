@@ -14,19 +14,17 @@ userSchema = new Schema( {
 	
 	unique_id: Number,
 	nowa: Number,
+	
 	username: String,
 	password: String,
-	passwordConf: String
-}),
-rpg = new Schema( {
-
-	nowa: Number,
-	username: String,
-	heal: String,
-	passwordConf: String
+	passwordConf: String,
+	heal: Number,
+	potion: Number,
+	crystal: Number,
+	uang: Number,
+	rplimit: Number,
+	namerp: String
 }),
 User = mongoose.model('User', userSchema);
-dbrpg = mongoose.model('rpg', rpg);
 
 module.exports = User;
-module.exports = dbrpg
