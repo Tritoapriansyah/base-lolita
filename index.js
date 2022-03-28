@@ -106,10 +106,9 @@ Hikari.version = [ 2, 2140, 12 ]
 	
 global.User = require('./user.js');
 	
-const url = "mongodb+srv://devn:ma3c140175@devn.je2td.mongodb.net/devn?retryWrites=true&w=majority";
+const url = "mongodb+srv://lolita:2304@cluster0.cdhbp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const { Database } = require('quickmongo');
 global.db = new Database(url);
-global.tgam = db.createModel('tebakgambar')
 db.on("ready", () => {
   console.log('DB connect banh')
 })
