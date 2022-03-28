@@ -18,6 +18,15 @@ userSchema = new Schema( {
 	password: String,
 	passwordConf: String
 }),
+rpg = new Schema( {
+	
+	unique_id: Number,
+	nowa: Number,
+	username: String,
+	password: String,
+	passwordConf: String
+}),
 User = mongoose.model('User', userSchema);
+dbrpg = mongoose.model('rpg', rpg);
 
 module.exports = User;
