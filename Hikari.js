@@ -347,7 +347,7 @@ players2.push(t.player2)
 gilir.push(t.gilir)
 }
 const findContact = async (contact) => {
-let findContact = await db.findOne({ nowa: contact });
+let findContact = await User.findOne({ nowa: contact });
 return findContact;
 };
 const isTTT = isGroup ? idttt.includes(from) : false
@@ -5908,7 +5908,7 @@ Silahkan Pilih Salah Satu!
 await findContact(sender)
  .then(async (res) => {
               if (res === null) {
-                await db.create({ nowa: sender });
+                await User.create({ nowa: sender });
                 const serialUser = createSerial(18)
            try {
                 ppimg = await Hikari.getProfilePicture(`${sender.split('@')[0]}@c.us`)
@@ -5936,6 +5936,9 @@ await findContact(sender)
 		      reply('Akun kamu sudah terverfikasi')
 	      } 
 })
+		.catch(() => {
+              reply('Akun kamu sudah terverfikasi')
+            });
 
         break
 case 'sfire1':{
