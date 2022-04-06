@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-mongoose.connect('mongodb+srv://lolita:2304@cluster0.cdhbp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://lolita:2304@cluster0.cdhbp.mongodb.net/dbs1?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }, (err) => {
@@ -11,19 +11,14 @@ mongoose.connect('mongodb+srv://lolita:2304@cluster0.cdhbp.mongodb.net/myFirstDa
   }
 });
 userSchema = new Schema( {
-	
-	unique_id: Number,
-	nowa: Number,
-	
-	username: String,
-	password: String,
-	passwordConf: String,
+	id: Number,
+	serial: String
+	name: String,
 	heal: Number,
 	potion: Number,
 	crystal: Number,
 	uang: Number,
-	rplimit: Number,
-	namerp: String
+	rplimit: Number
 }),
 User = mongoose.model('User', userSchema);
 
