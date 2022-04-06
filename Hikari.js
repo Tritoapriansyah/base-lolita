@@ -2820,14 +2820,14 @@ Hikari.sendMessage(from, { "degreesLatitude": '', "degreesLongitude": '', "jpegT
 if ( args.length < 1) return reply('querty mana?')
 	webto = args.join(" ")
 webtoon = await fetchJson('https://api.chipa.xyz/api/webtoons_search?title=${webto}&apikey=0V3CFO9Y1LB6Y1I63YXZJG2F')
-webtoonimg = await getBuffer('webtoo.result.image')
+webtoonimg = await getBuffer('${webtoon.result.image}')
 webtoontext = `『 webtoons search 』
 ☭ title: ${webtoon.result.title}
 ☭ author: ${webtoon.result.author}
 ☭ like: ${webtoon.result.like}
 ☭ link: ${webtoon.result.link}
 ☭ genre: ${webtoon.result.genre}`
-Hikari.sendMessage(from, ${webtoontext}, text, {quoted: freply, thumbnail: ${webtoo.result.image}})
+Hikari.sendMessage(from, ${webtoontext}, text, {quoted: freply, thumbnail: ${webtoon.result.image}})
 break
 
 
