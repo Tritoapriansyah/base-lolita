@@ -2816,6 +2816,23 @@ case 'lock':
 }
 Hikari.sendMessage(from, { "degreesLatitude": '', "degreesLongitude": '', "jpegThumbnail": fakeimage}, MessageType.location, {quoted: ikymemek})
            break
+	case 'webtoon':
+if ( args.length < 1) return reply('querty mana?')
+	webto = args.join(" ")
+webtoon = await fetchJson('https://api.chipa.xyz/api/webtoons_search?title=${webto}&apikey=0V3CFO9Y1LB6Y1I63YXZJG2F')
+webtoonimg = await getBuffer('webtoo.result.image')
+webtoontext = '『 webtoons search 』
+☭ title: ${webtoon.result.title}
+☭ author: ${webtoon.result.author}
+☭ like: ${webtoon.result.like}
+☭ link: ${webtoon.result.link}
+☭ genre: ${webtoon.result.genre}'
+Hikari.sendMessage(from, ${webtoontext}, text, {quoted: freply, thumbnail: ${webtoo.result.image}})
+break
+
+
+
+		
    case 'kalender':
               reply(`
 🐣Day ${week} ${weton} 
