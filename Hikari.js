@@ -2827,7 +2827,7 @@ webtoontext = `『 webtoons search 』
 ☭ like: ${webtoon.result.like}
 ☭ link: ${webtoon.result.link}
 ☭ genre: ${webtoon.result.genre}`
-Hikari.sendMessage(from, ${webtoontext}, text, {quoted: freply, thumbnail: ${webtoon.result.image}})
+Hikari.sendMessage(from, `${webtoontext}`, messageTy, {quoted: freply, thumbnail: `${webtoon.result.image}`})
 break
 
 
