@@ -139,7 +139,7 @@ rplimitawal = '25'//Ini Bonus Daftar RP
 let multipref = false
 let offline = false
 let waktu = Date.now()
-let banChats = true
+let banChats = false
 let lolkey = `${setting.lolkey}`
 
 //===SETTING DATABASE BY MANIK===//
