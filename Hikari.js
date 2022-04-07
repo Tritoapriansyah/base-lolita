@@ -10460,16 +10460,7 @@ if (isCmd) {
                     }
   } 
 
-  } catch (err) {
-    e = String(err)
-    if (!e.includes("this.isZero")) {
-    	if (!e.includes("jid is not defined")) {
-    	if (!e.includes("Cannot read properties of undefined (reading 'endsWith')")){
-  console.log('Message : %s', color(e, 'cyan'))
+  } catch (e) {
+  console.log('Message : ', color(e, 'cyan'))
         }
-  }
-}
-}
  }
-
- 
