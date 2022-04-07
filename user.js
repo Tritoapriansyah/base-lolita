@@ -11,7 +11,7 @@ mongoose.connect('mongodb+srv://lolita:2304@cluster0.cdhbp.mongodb.net/dbs1?retr
   }
 });
 userSchema = new Schema( {
-	id: Number,
+	id: String,
 	serial: String,
 	name: String,
 	heal: Number,
