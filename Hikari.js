@@ -532,19 +532,13 @@ var newPerson = new User({
 	potion:potionrp,
 	crystal:crystalrp,
 	rplimit:limitrp
-});
+})
 newPerson.save(function(err, person){
 	if(err)
 		console.log(err);
 	else
 		console.lo('Success');
-});
-const checkRegisteredUser = (sender) => {
-let status = false
-User.findOne({id: sender});
-status = true
-return status
-}
+})
 const parseMention = (text = '') => {
     return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
 }
@@ -580,7 +574,7 @@ headerType: 6
 Hikari.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
 }
 const isJoin = join.includes(sender);
-const isRegistered = checkRegisteredUser(sender)
+const isRegistered = findContact(sender)
 /////< ini Button Text>///////
 const sendButMessage = (id, text1, desc1, but = [], options = {}) => {
 const buttonMessage = {
