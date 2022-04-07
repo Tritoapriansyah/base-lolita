@@ -5,18 +5,15 @@ const {
   MessageOptions,
   Mimetype,
   WALocationMessage,
-  WAMessageProto,
   WA_MESSAGE_STUB_TYPES,
   WA_DEFAULT_EPHEMERAL,
   ReconnectMode,
   ProxyAgent,
-  prepareMessageFromContent, 
   ChatModification,
   GroupSettingChange,
   waChatKey,
   mentionedJid,
   processTime,
-  relayWAMessage,
   Browsers,
 } = require("@adiwajshing/baileys")
 const {
@@ -138,9 +135,10 @@ rplimitawal = '25'//Ini Bonus Daftar RP
  batterylevel = 'TIDAK TERDETEKSI'
  charging = 'TIDAK TERDETEKSI'
 //===SETTING BOT BY MANIK===//
+let multipref = false
 let offline = false
 let waktu = Date.now()
-let banChats = false
+let banChats = true
 let lolkey = `${setting.lolkey}`
 
 //===SETTING DATABASE BY MANIK===//
@@ -158,7 +156,7 @@ const audionye = JSON.parse(fs.readFileSync('./src/audio.json'))
 const imagenye = JSON.parse(fs.readFileSync('./src/image.json'))
 
 global.hit = {}
-watermark = "Trito"
+watermark = "AryaManik"
 let _registered = JSON.parse(fs.readFileSync('./database/user/registered.json'))
 let register = JSON.parse(fs.readFileSync('./database/user/registered.json'))
 let welkom = JSON.parse(fs.readFileSync('./database/group/welcome.json'))
@@ -295,7 +293,10 @@ const isAntidel = isGroup ? antidel.includes(from) : false;
 
 const type = Object.keys(Arya.message)[0]        
 const cmd = (type === 'conversation' && Arya.message.conversation) ? Arya.message.conversation : (type == 'imageMessage') && Arya.message.imageMessage.caption ? Arya.message.imageMessage.caption : (type == 'videoMessage') && Arya.message.videoMessage.caption ? Arya.message.videoMessage.caption : (type == 'extendedTextMessage') && Arya.message.extendedTextMessage.text ? Arya.message.extendedTextMessage.text : ''.slice(1).trim().split(/ +/).shift().toLowerCase()
+const prefix = setting.prefix
+if(multipref = true) {
 const prefix = /^[°!●π÷×¶∆£¢€¥®™=|~#%^&.?/\\©^z+,;]/.test(cmd) ? cmd.match(/^[°!●π÷×¶∆£¢€¥®™=|~#%^&.?/\\©^z+,;]/gi) : '.'
+}
 body = (type === 'conversation' && Arya.message.conversation.startsWith(prefix)) ? Arya.message.conversation : (type == 'imageMessage') && Arya.message[type].caption.startsWith(prefix) ? Arya.message[type].caption : (type == 'videoMessage') && Arya.message[type].caption.startsWith(prefix) ? Arya.message[type].caption : (type == 'extendedTextMessage') && Arya.message[type].text.startsWith(prefix) ? Arya.message[type].text : (type == 'listResponseMessage') && Arya.message[type].singleSelectReply.selectedRowId ? Arya.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && Arya.message[type].selectedButtonId ? Arya.message[type].selectedButtonId : (type == 'stickerMessage') && (getCmd(Arya.message[type].fileSha256.toString('base64')) !== null && getCmd(Arya.message[type].fileSha256.toString('base64')) !== undefined) ? getCmd(Arya.message[type].fileSha256.toString('base64')) : ""
 budy = (type === 'conversation') ? Arya.message.conversation : (type === 'extendedTextMessage') ? Arya.message.extendedTextMessage.text : ''
 bodi = (type === 'conversation') ? Arya.message.conversation : (type === 'extendedTextMessage') ? Arya.message.extendedTextMessage.text : ''
@@ -346,20 +347,16 @@ players1.push(t.player1)
 players2.push(t.player2)
 gilir.push(t.gilir)
 }
-const findContact = async (contact) => {
-let findContact = await User.findOne({ id: contact });
-return findContact;
-};
 const isTTT = isGroup ? idttt.includes(from) : false
 isPlayer1 = isGroup ? players1.includes(sender) : false
 isPlayer2 = isGroup ? players2.includes(sender) : false
 const isBadword = isGroup ? grupbadword.includes(from) : false
 const isOwner = ownerNumber.includes(senderr)
-const isRegister = findContact(sender)
+const isRegister = User.findOne({id:sender})
 const isPremium = premium.checkPremiumUser(sender, _premium)
 const isSewa = _sewa.checkSewaGroup(from, sewa)
 const isAfkOn = afk.checkAfkUser(sender, _afk)
-const isBrave = namerpg.checkNameUser(sender, _name)
+const isBrave = User.findOne({id:sender})
 const isLevelingOn = isGroup ? _leveling.includes(from) : false
 const isMuted = isGroup ? mute.includes(from) : false
 const isAntiLink = isGroup ? antilink.includes(from) : false
@@ -443,23 +440,8 @@ return Hikari.sendMessage(from, teks, text, {quoted: freply, thumbnail: fs.readF
 }
 const freply = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { "contactMessage": { "displayName": `${pushname}`, "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:XL;${pushname},;;;\nFN:${pushname},\nitem1.TEL;waid=${senderr.split('@')[0]}:${senderr.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`, "jpegThumbnail":fs.readFileSync('./media/Hikari.png')
 }}}
-const fstatus = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(from ? { remoteJid: "status@broadcast" } : {}) }, message: { "imageMessage": { "url": "https://mmg.whatsapp.net/d/f/At0x7ZdIvuicfjlf9oWS6A3AR9XPh0P-hZIVPLsI70nM.enc", "mimetype": "image/jpeg","caption": "${pushname}", 'jpegThumbnail': fs.readFileSync('./media/Hikari.png')}}}
-
-const ftrol = {key : {participant : '0@s.whatsapp.net'},
-       message: {
-                    orderMessage: {
-                            itemCount : 123,
-                            status: 1,
-                            surface : 1,
-                            message: `${ucapanWaktu}, ${pushname}`, 
-                            orderTitle: `Jangan Lupa Nafas Bro`,
-                            thumbnail: fakeimage, //Gambarnye
-                            sellerJid: '6285888258313@s.whatsapp.net' 
-                          }
-                        }
-                      }
- const math = (teks) => {
- return Math.floor(teks)
+const math = (teks) => {
+return Math.floor(teks)
 }
 const kick = function(from, orangnya){
 for (let i of orangnya){
@@ -523,27 +505,35 @@ const getRegisteredRandomId = () => {
 return _registered[Math.floor(Math.random() * _registered.length)].id
 }
 const addRegisteredUser = (sender, nama, uangrp, healrp, potionrp, crystalrp, limitrp, serials) => {
-var newPerson = new User({
-	id:sender,
-	serial:serials,
-	name:nama,
-	uang:uangrp,
-	heal:healrp,
-	potion:potionrp,
-	crystal:crystalrp,
-	rplimit:limitrp
+  var newPerson = new User({
+    id:sender,
+    serial:serials,
+    name:nama,
+    uang:uangrp,
+    heal:healrp,
+    potion:potionrp,
+    crystal:crystalrp,
+    rplimit:limitrp,
+  })
+  newPerson.save(function(err, person){
+    if(err)
+      console.log(err);
+    else
+      console.lo('Success');
+  })
+const checkRegisteredUser = (sender) => {
+let status = false
+Object.keys(_registered).forEach((i) => {
+if (_registered[i].id === sender) {
+status = true
+}
 })
-newPerson.save(function(err, person){
-	if(err)
-		console.log(err);
-	else
-		console.lo('Success');
-})
+return status
+}
 const parseMention = (text = '') => {
     return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
 }
 Hikari.chatRead(from)
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -574,7 +564,7 @@ headerType: 6
 Hikari.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
 }
 const isJoin = join.includes(sender);
-const isRegistered = findContact(sender)
+const isRegistered = checkRegisteredUser(sender)
 /////< ini Button Text>///////
 const sendButMessage = (id, text1, desc1, but = [], options = {}) => {
 const buttonMessage = {
@@ -786,12 +776,11 @@ const daftar1 = `Hai kak  ${pushname} ${ucapanWaktu} \n\╭◪ *「 DAFTAR DULU 
 ╰───────────────╮  
 ╭───────────────╯
 ├❏ Cara daftar sekarang gampang!
-├❏ klik saja tombol yang di bawah
-├❏ selamat anda telah berhasil membuat akun
+├❏ Klik aja verify
 ├❏ Nb : Jan Spam Bot!
 ╰───────────────╯ `
-const daftar2 = '```Klik Tombol Di Bawah Untuk daftar```'
-const daftar3 = [{buttonId: `${prefix}verify`,buttonText: {displayText: `⬡ DAFTAR `,},type: 1,},]
+const daftar2 = '```Klik Tombol Di Bawah Untuk Verify```'
+const daftar3 = [{buttonId: `${prefix}verify ${pushname}`,buttonText: {displayText: `⬡ VERIFY `,},type: 1,},]
 const nomenu = [{buttonId: `${prefix}menu`,buttonText: {displayText: `⬡ MENU `,},type: 1,},]
 
 ///////< PREMIUM BUTTON BY IKY > ////////
@@ -1199,7 +1188,7 @@ jawaban = tebakgambar[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var http = randomNomor(100)
 addMonUser(sender, http)
-reply(`*_🎮 Tebak Gambar  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${http} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakgambar*`)
+await reply(`*_🎮 Tebak Gambar  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${http} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakgambar*`)
 delete tebakgambar[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
 }
@@ -1210,7 +1199,7 @@ for (let i of anjuy){
 if (budy.toLowerCase().includes(i)){
 var htgmp = Math.floor(Math.random() * 20) + 1
 addMonUser(sender, htgmp)
-reply(`*Jawaban benar*\n*Jawaban :* ${i}\n*Hadiah :* $${htgmp}\n*Jawaban yang blum tertebak :* ${anjuy.length - 1}`)
+await reply(`*Jawaban benar*\n*Jawaban :* ${i}\n*Hadiah :* $${htgmp}\n*Jawaban yang blum tertebak :* ${anjuy.length - 1}`)
 var anug = anjuy.indexOf(i)
 anjuy.splice(anug, 1)
 }
@@ -1226,7 +1215,7 @@ jawaban = tebakanime[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmu = randomNomor(100)
 addMonUser(sender, htgmu)
-reply(`*_🎮 Tebak Anime 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakanime*`)
+await reply(`*_🎮 Tebak Anime 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakanime*`)
 delete tebakanime[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakanime.json", JSON.stringify(tebakanime))
 }
@@ -1237,7 +1226,7 @@ jawaban = tebaklagu[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htpl = randomNomor(100)
 addMonUser(sender, htpl)
-reply(`*_🎮 Tebak Lagu 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htpl} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklagu*`)
+await reply(`*_🎮 Tebak Lagu 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htpl} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklagu*`)
 delete tebaklagu[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaklagu.json", JSON.stringify(tebaklagu))
 }
@@ -1248,7 +1237,7 @@ jawaban = tebaktebakan[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htpu = randomNomor(100)
 addMonUser(sender, htpu)
-reply(`*_🎮 Tebak Tebakan 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htpu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaktebakan*`)
+await reply(`*_🎮 Tebak Tebakan 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htpu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaktebakan*`)
 delete tebaktebakan[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaktebakan.json", JSON.stringify(tebaktebakan))
 }
@@ -1259,7 +1248,7 @@ jawaban = kuismath[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htcc = randomNomor(100)
 addMonUser(sender, htcc)
-reply(`*_🎮 Kuis Matematika  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}kuismath*`)
+await reply(`*_🎮 Kuis Matematika  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}kuismath*`)
 delete kuismath[sender.split('@')[0]]
 fs.writeFileSync("./database/kuismath.json", JSON.stringify(kuismath))
 
@@ -1271,7 +1260,7 @@ jawaban = asahotak[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgm = randomNomor(100)
 addMonUser(sender, htgm)
-reply(`*_🎮 Asah Otak  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgm} 💰_\n\nIngin bermain lagi? kirim *${prefix}asahotak*`)
+await reply(`*_🎮 Asah Otak  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgm} 💰_\n\nIngin bermain lagi? kirim *${prefix}asahotak*`)
 delete asahotak[sender.split('@')[0]]
 fs.writeFileSync("./database/asahotak.json", JSON.stringify(asahotak))
 }
@@ -1282,7 +1271,7 @@ jawaban = caklontong[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmi = randomNomor(100)
 addMonUser(sender, htgmi)
-reply(`*_🎮 Caklontong  ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmi} 💰_\n\nIngin bermain lagi? kirim *${prefix}caklontong*`)
+await reply(`*_🎮 Caklontong  ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmi} 💰_\n\nIngin bermain lagi? kirim *${prefix}caklontong*`)
 delete caklontong[sender.split('@')[0]]
 fs.writeFileSync("./database/caklontong.json", JSON.stringify(caklontong))
 }
@@ -1293,7 +1282,7 @@ jawaban = tebakjenaka[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmuu = randomNomor(100)
 addMonUser(sender, htgmuu)
-reply(`*_🎮 Tebak Jenaka  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmuu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakjenaka*`)
+await reply(`*_🎮 Tebak Jenaka  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmuu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakjenaka*`)
 delete tebakjenaka[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakjenaka.json", JSON.stringify(tebakjenaka))
 }
@@ -1304,7 +1293,7 @@ jawaban = tebaklirik[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmii = randomNomor(100)
 addMonUser(sender, htgmii)
-reply(`*_🎮 Tebak Lirik 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmii} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklirik*`)
+await reply(`*_🎮 Tebak Lirik 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmii} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklirik*`)
 delete tebaklirik[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaklirik.json", JSON.stringify(tebaklirik))
 }
@@ -1315,7 +1304,7 @@ jawaban = tebakimia[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmcc = randomNomor(100)
 addMonUser(sender, htgmcc)
-reply(`*_🎮 Tebak Kimia ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkimia*`)
+await reply(`*_🎮 Tebak Kimia ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkimia*`)
 delete tebakimia[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakimia.json", JSON.stringify(tebakimia))
 }
@@ -1326,7 +1315,7 @@ jawaban = tebaksiapaaku[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmk = randomNomor(100)
 addMonUser(sender, htgmk)
-reply(`*_🎮 Tebak Siapakah Aku  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmk} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaksiapaaku*`)
+await reply(`*_🎮 Tebak Siapakah Aku  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmk} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaksiapaaku*`)
 delete tebaksiapaaku[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaksiapaaku.json", JSON.stringify(tebaksiapaaku))
 }
@@ -1337,7 +1326,7 @@ jawaban = tebakbendera[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var html = randomNomor(100)
 addMonUser(sender, html)
-reply(`*_🎮 Tebak Bendera  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${html} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakbendera*`)
+await reply(`*_🎮 Tebak Bendera  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${html} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakbendera*`)
 delete tebakbendera[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakbendera.json", JSON.stringify(tebakbendera))
 }
@@ -1348,7 +1337,7 @@ jawaban = susunkata[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htmp = randomNomor(100)
 addMonUser(sender, htmp)
-reply(`*_🎮 Susun Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmp} 💰_\n\nIngin bermain lagi? kirim *${prefix}susunkata*`)
+await reply(`*_🎮 Susun Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmp} 💰_\n\nIngin bermain lagi? kirim *${prefix}susunkata*`)
 delete susunkata[sender.split('@')[0]]
 fs.writeFileSync("./database/susunkata.json", JSON.stringify(susunkata))
 }
@@ -1359,7 +1348,7 @@ jawaban = tebakata[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htmu = randomNomor(100)
 addMonUser(sender, htmu)
-reply(`*_🎮 Tebak Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkata*`)
+await reply(`*_🎮 Tebak Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkata*`)
 delete tebakata[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakata.json", JSON.stringify(tebakata))
 }
@@ -1674,7 +1663,7 @@ break
 case 'tesb':
 buttonWithText(from, `Hai ${pushname !== undefined ? pushname : 'Kak'} ${ucapanWaktu}, Aku adalah *${botName}*
         
-Bot WhatsApp. Jika menemukan bug/eror pada bot ini, silahkan lapor kepada ${prefix}owner`, `WhatsApp Bot Â© 2020`, templateButtons)
+Bot ini adalah Beta *Multi-Device* WhatsApp. Jika menemukan bug/eror pada bot ini, silahkan lapor kepada ${prefix}owner`, `WhatsApp Bot Â© 2020`, templateButtons)
         break
 case 'sendbug':
 if (!isOwner && !fromMe) return reply(mess.OnlyOwner)
@@ -2638,9 +2627,7 @@ You can see other menus for yourself by typing !command `
         //anonymouschatbymanik
              case 'anonymous':
        theu = await Hikari.getStatus(`${sender.split('@')[0]}@s.whatsapp.net`, MessageType.text)
-       User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-        if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-        else { 
+if (!isRegistered) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
        buatanmanik = `Halo ${pushname}👋, berikut perintah anonymous chat bot
 
 🗒️ ${prefix}anonymous - _melihat perintah yang ada_
@@ -2667,122 +2654,108 @@ Note: Owner Tidak Bertanggung Jawab Jika Ada Masalah Antara Pengguna Bot`
                headerType: 4
 }
                prep = await Hikari.prepareMessageFromContent(from,{buttonsMessage},{contextInfo: {mentionedJid: [sode], quoted: freply}})
-               Hikari.relayWAMessage(prep)}})
+               Hikari.relayWAMessage(prep)
                break
             break
       case 'help':
        case 'menu':
-        User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-          if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-          else {
-               thu = await Hikari.getStatus(`${sender.split('@')[0]}@s.whatsapp.net`, MessageType.text)
-         groups = Hikari.chats.array.filter(v => v.jid.endsWith('g.us'))
-                privat = Hikari.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
-                ram2 = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB`
-                charger = `${charging ? 'On Charger' : 'No Charger'}`
-                uptime = process.uptime();
-                timestampe = speed();
-                totalChat = await Hikari.chats.all()
-                latensie = speed() - timestampe
-                total = math(`${groups.length}*${privat.length}`)
-                more = String.fromCharCode(8206)
-                readmore = more.repeat(4001)
-  
-         menu =`-------------------<${botName}>-------------------
-  ${ucapanWaktu} ${pushname} 👋 
-  「 Owner Contact 」 
-  ●📨WhatsApp: @${sode.split("@")[0]}
-  ●📧Instagram: @${setting.igmu}
-  「 Bot Info 」 
-  ● Speed : *${latensie.toFixed(4)} _Second_*
-  ● Active : *${runtime(process.uptime())}*
-  ● Platfrom : *${os.platform()}*
-  ● Total: *${_registered.length}* *User*
-  ● Prefix: ${prefix}
-  「 Your Info」 
-  ● Username: *${pushname}*
-  ● Sender : *@${sender.split('@')[0]}*
-  ● Bio Info : *${thu.status}*
-  ● Premium : *${isPremium ? 'Ya' : 'No'}*
-  ● Admin : *${isGroupAdmins ? 'Ya' : 'No'}*
-  ● Level : *${Levelnye}*
-  ● XP : *${Xpluu} / ${requiredXplu}*
-  ———————————————————
-  ${readmore} 
-  「 ⋆⋅ COMMAND ⋅⋆ 」 
-  ● ${prefix}anonymous [NEW]
-  ● ${prefix}roleplaymenu [NEW]
-  ● ${prefix}allmenu [NEW]
-  ● ${prefix}jadibotmenu [NEW]
-  ● ${prefix}groupmenu
-  ● ${prefix}photoxy
-  ● ${prefix}ephoto
-  ● ${prefix}randomimage
-  ● ${prefix}wibu2
-  ● ${prefix}storymenu
-  ● ${prefix}porno
-  ● ${prefix}randomtext
-  ● ${prefix}islammenu
-  ● ${prefix}wibumenu
-  ● ${prefix}stickermenu
-  ● ${prefix}ownermenu
-  ● ${prefix}gamemenu
-  ● ${prefix}funmenu
-  ● ${prefix}downloadmenu
-  ● ${prefix}infomenu
-  ● ${prefix}othermenu
-  ● ${prefix}owner
-  ● ${prefix}lolitagroup
-  ● ${prefix}sewabot
-  ♥Thx To♥
-  ●All creator bot
-  ●Tuhanku
-  ●Ortuku
-  ●Penyemangatku
-  ●Manik~_~
-  ©Lolita Bot
-  `        
-      buttons =  [
-    {buttonId: `${prefix}command`, buttonText: {displayText: '⎙Command'}, type: 1},
-      {buttonId: `${prefix}Rules`, buttonText: {displayText: 'S&K Bot'}, type: 1},
-    {buttonId: `${prefix}owner`, buttonText: {displayText: 'Owner'}, type: 1},
-  ]
-                 imageMsg = (await Hikari.prepareMessageMedia(fs.readFileSync(`./media/bot.jpeg`), 'imageMessage', { thumbnail:Bfake, contextInfo:{forwardingScore: 989, isForwarded: true}})).imageMessage
-  
-                 buttonsMessage = {
-                 contentText: `${menu}`,
-                 footerText: `${setting.botName} By @${setting.ownerName}`, imageMessage: imageMsg,
-                 buttons: buttons,
-                 headerType: 4
-  }
-                 const arganz = fs.readFileSync ('./media/Hikari.png')
-                          prep = await Hikari.prepareMessageFromContent(from,{buttonsMessage},{contextInfo: {mentionedJid: [sode], externalAdReply: {
-  title: `Hai ${setting.botName} Is Here`,
-  body: `By @${setting.ownerName}`,
-  mediaType: 2,
-  thumbnail: arganz,
-  mediaUrl: "https://youtu.be/KAglIQ3bUls",
-  sourceUrl: "https://youtu.be/KAglIQ3bUls"
-  }}, quoted: freply} )
-  Hikari.sendMessage(from, {"contentText": `${menu}`,"footerText": `${setting.botName} By @${setting.ownerName}`,
-  "buttons":[{buttonId: `${prefix}command`, buttonText: {displayText: '⎙Command'}, type: 1},{buttonId: `${prefix}Rules`, buttonText: {displayText: 'S&K Bot'}, type: 1},{buttonId: `${prefix}owner`, buttonText: {displayText: 'Owner'}, type: 1}],
-  "headerType": "DOCUMENT", "documentMessage": {
-              "url": "https://mmg.whatsapp.net/d/f/Ano5cGYOFQnC51uJaqGBWiCrSJH1aDCi8-YPQMMb1N1y.enc",
-              "mimetype": "application/pdf",
-              "title": "LolitaBot.pdf", // nama.pdf
-              "fileSha256": "8Xfe3NQDhjwVjR54tkkShLDGrIFKR9QT5EsthPyxDCI=",
-              "fileLength": "999999999999",
-              "pageCount": 999,
-              "mediaKey": "XWv4hcnpGY51qEVSO9+e+q6LYqPR3DbtT4iqS9yKhkI=",
-              "fileName": "Lolita whatsapp bot", // file name
-              "fileEncSha256": "NI9ykWUcXKquea4BmH7GgzhMb3pAeqqwE+MTFbH/Wk8=",
-              "directPath": "/v/t62.7119-24/35160407_568282564396101_3119299043264875885_n.enc?ccb=11-4&oh=d43befa9a76b69d757877c3d430a0752&oe=61915CEC",
-              "mediaKeyTimestamp": "1634472176",
-              "jpegThumbnail": arganz,
-    }}, MessageType.buttonsMessage,{ quoted: ftrol, sendEphemeral: true, contextInfo:{"forwardingScore":999,"isForwarded":true, "externalAdReply":{"title": `klik here for free script`, "body": `Lolita Botz`, mediaType: 2, "thumbnailUrl": "https://cdn-image.hipwee.com/wp-content/uploads/2021/03/hipwee-gojo_satoru_by_chuutadesu_deb0dr7-fullview-750x422.jpg","previewType": "VIDEO","mediaUrl": `https://youtu.be/dQw4w9WgXcQ`}}})
-          }
-          })
-        break
+       thu = await Hikari.getStatus(`${sender.split('@')[0]}@s.whatsapp.net`, MessageType.text)
+if (!isRegistered) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
+       groups = Hikari.chats.array.filter(v => v.jid.endsWith('g.us'))
+              privat = Hikari.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
+              ram2 = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB`
+              charger = `${charging ? 'On Charger' : 'No Charger'}`
+              uptime = process.uptime();
+              timestampe = speed();
+              totalChat = await Hikari.chats.all()
+              latensie = speed() - timestampe
+              total = math(`${groups.length}*${privat.length}`)
+              more = String.fromCharCode(8206)
+              readmore = more.repeat(4001)
+
+       menu =`-------------------<${botName}>-------------------
+${ucapanWaktu} ${pushname} 👋 
+
+「 Owner Contact 」 
+●📨WhatsApp: @${sode.split("@")[0]}
+●📧Instagram: @${setting.igmu}
+
+「 Bot Info 」 
+● Speed : *${latensie.toFixed(4)} _Second_*
+● Active : *${runtime(process.uptime())}*
+● Platfrom : *${os.platform()}*
+● Total: *${_registered.length}* *User*
+● Prefix: ${prefix}
+
+「 Your Info」 
+● Username: *${pushname}*
+● Sender : *@${sender.split('@')[0]}*
+● Bio Info : *${thu.status}*
+● Premium : *${isPremium ? 'Ya' : 'No'}*
+● Admin : *${isGroupAdmins ? 'Ya' : 'No'}*
+● Level : *${Levelnye}*
+● XP : *${Xpluu} / ${requiredXplu}*
+———————————————————
+${readmore} 
+「 ⋆⋅ COMMAND ⋅⋆ 」 
+● ${prefix}anonymous [NEW]
+● ${prefix}roleplaymenu [NEW]
+● ${prefix}allmenu [NEW]
+● ${prefix}jadibotmenu [NEW]
+● ${prefix}groupmenu
+● ${prefix}photoxy
+● ${prefix}ephoto
+● ${prefix}randomimage
+● ${prefix}wibu2
+● ${prefix}storymenu
+● ${prefix}porno
+● ${prefix}randomtext
+● ${prefix}islammenu
+● ${prefix}wibumenu
+● ${prefix}stickermenu
+● ${prefix}ownermenu
+● ${prefix}gamemenu
+● ${prefix}funmenu
+● ${prefix}downloadmenu
+● ${prefix}infomenu
+● ${prefix}othermenu
+● ${prefix}owner
+● ${prefix}hikarigroup
+● ${prefix}sewabot
+
+♥Thx To♥
+●All creator bot
+●Tuhanku
+●Ortuku
+●Penyemangatku
+●Manik~_~
+
+© DESIGN: ARYAMANIK
+`        
+    buttons =  [
+  {buttonId: `${prefix}command`, buttonText: {displayText: '⎙Command'}, type: 1},
+    {buttonId: `${prefix}Rules`, buttonText: {displayText: 'S&K Bot'}, type: 1},
+  {buttonId: `${prefix}owner`, buttonText: {displayText: 'Owner'}, type: 1},
+]
+               imageMsg = (await Hikari.prepareMessageMedia(fs.readFileSync(`./media/bot.jpeg`), 'imageMessage', { thumbnail:Bfake, contextInfo:{forwardingScore: 989, isForwarded: true}})).imageMessage
+
+               buttonsMessage = {
+               contentText: `${menu}`,
+               footerText: `${setting.botName} By @${setting.ownerName}`, imageMessage: imageMsg,
+               buttons: buttons,
+               headerType: 4
+}
+               const arganz = fs.readFileSync ('./media/Hikari.png')
+               prep = await Hikari.prepareMessageFromContent(from,{buttonsMessage},{contextInfo: {mentionedJid: [sode], externalAdReply: {
+title: `Hai ${setting.botName} Is Here`,
+body: `By @${setting.ownerName}`,
+mediaType: 2,
+thumbnail: arganz,
+mediaUrl: "https://youtu.be/KAglIQ3bUls",
+sourceUrl: "https://youtu.be/KAglIQ3bUls"
+}}, quoted: freply} )
+               Hikari.relayWAMessage(prep)
+               break
                
 case 'f':
 case 'lock':
@@ -2819,34 +2792,15 @@ case 'lock':
 }
 Hikari.sendMessage(from, { "degreesLatitude": '', "degreesLongitude": '', "jpegThumbnail": fakeimage}, MessageType.location, {quoted: ikymemek})
            break
-	case 'webtoon':
-if ( args.length < 1) return reply('querty mana?')
-	webto = args.join(" ")
-webtoon = await fetchJson('https://api.chipa.xyz/api/webtoons_search?title=${webto}&apikey=0V3CFO9Y1LB6Y1I63YXZJG2F')
-webtoonimg = await getBuffer('${webtoon.result.image}')
-webtoontext = `『 webtoons search 』
-☭ title: ${webtoon.result.title}
-☭ author: ${webtoon.result.author}
-☭ like: ${webtoon.result.like}
-☭ link: ${webtoon.result.link}
-☭ genre: ${webtoon.result.genre}`
-Hikari.sendMessage(from, `${webtoontext}`, messageTy, {quoted: freply, thumbnail: `${webtoon.result.image}`})
-break
-
-
-
-		
    case 'kalender':
               reply(`
 🐣Day ${week} ${weton} 
 🐥Date : ${date}
 `)
 break
-case 'allmenu':
+case 'allmenu':{
 thu = await Hikari.getStatus(`${sender.split('@')[0]}@s.whatsapp.net`, MessageType.text)
-User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-  if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-  else {
+if (!isRegistered) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
        groups = Hikari.chats.array.filter(v => v.jid.endsWith('g.us'))
               privat = Hikari.chats.array.filter(v => v.jid.endsWith('s.whatsapp.net'))
               ram2 = `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)}MB / ${Math.round(require('os').totalmem / 1024 / 1024)}MB`
@@ -3393,7 +3347,7 @@ ${readmore}
 ●Penyemangatku
 ●Manik~_~
 
-© Trito
+© DESIGN: ARYAMANIK
 `
    buttons =  [
   {buttonId: `${prefix}command`, buttonText: {displayText: '⎙Command'}, type: 1},
@@ -3418,15 +3372,11 @@ mediaUrl: "https://youtu.be/KAglIQ3bUls",
 sourceUrl: "https://youtu.be/KAglIQ3bUls"
 }}, quoted: freply} )
                Hikari.relayWAMessage(prep)
-              }})
-            
                break
-        
+          }
               
 case 'textpro':
-  User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-    if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-    else { 
+if (!isRegistered) return reply(ind.only.daftarB)
 wibu = `
 「 Text Pro Me 」
 ●${prefix} blackpink text
@@ -3480,7 +3430,6 @@ sendButMessage(from, wibu, `Save Nomor Bot☜☆☞`, [
             },
             type: 1,
           },]);
-        }})
 break
 case 'freply':
                 if (args.length < 1) return reply(`Usage :\n${prefix}fitnahpc [nomor|pesan|balasanbot]]\n\nEx : \n${prefix}fitnahpc 0|hai|hai juga markenlin`)
@@ -3516,9 +3465,7 @@ case 'fitnah':
           break
 case 'wibu2':
 case 'nsfwanime':
-  User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-    if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-    else { 
+if (!isRegistered) return reply(ind.only.daftarB)
 wibu = `
 「 Nsfw Anime 」
 ●${prefix} chiisaihentai
@@ -3548,7 +3495,7 @@ wibu = `
               displayText: `☸ BACK TO MENU `,
             },
             type: 1,
-          },]);}})
+          },]);
         break;
         case 'randomimage':
 case 'randomimage':
@@ -3613,9 +3560,7 @@ wibu = `
         
         case 'photoxy':
 case 'photooky':
-  User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-    if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-    else { 
+if (!isRegistered) return reply(ind.only.daftarB)
 wibu = `
 「 Photo Oxy 」
 ●${prefix} shadow text
@@ -3654,7 +3599,7 @@ wibu = `
               displayText: `☸ BACK TO MENU `,
             },
             type: 1,
-          },]);}})
+          },]);
         break;
         case 'simi':
           res = await axios.get(`https://api-sv2.simsimi.net/v2/?text=${body.slice(6)}&lc=id`)
@@ -3724,9 +3669,7 @@ case 'modesimi':
 break
         case 'ephoto':
 case 'ephotomenu':
-  User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-    if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-    else { 
+if (!isRegistered) return reply(ind.only.daftarB)
 wibu = `
 「 Ephoto 360 」
 ●${prefix} wetglass text
@@ -3767,12 +3710,10 @@ wibu = `
               displayText: `☸ BACK TO MENU `,
             },
             type: 1,
-          },]);}})
+          },]);
         break;
         case 'randomvideo':
-          User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-            if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-            else { 
+if (!isRegistered) return reply(ind.only.daftarB)
 wibu = `
 「 Random Video 」
 ●${prefix} lolivid
@@ -3788,7 +3729,7 @@ wibu = `
               displayText: `☸ BACK TO MENU `,
             },
             type: 1,
-          },]);}})
+          },]);
         break;
         case 'wasted':
           var imgbb = require('imgbb-uploader')
@@ -3828,9 +3769,7 @@ break
           break
         case 'imagemani':
 case 'imageefek':
-  User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-    if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-    else { 
+if (!isRegistered) return reply(ind.only.daftarB)
 wibu = `
  *IMAGE MANIPULATION*
 ●${prefix} darkjoke
@@ -3855,7 +3794,7 @@ wibu = `
               displayText: `☸ BACK TO MENU `,
             },
             type: 1,
-          },]);}})
+          },]);
         break;
         
         case '18+':
@@ -5925,21 +5864,27 @@ Silahkan Pilih Salah Satu!
               reply(txtnyee)
               break
               case 'verify':
+              
 if (isRegistered) return reply('Akun kamu sudah terverfikasi')
-                const serialUser = createSerial(18)
+if (args.length < 1) return reply('nama nya ?')
+ininama = args.join(" ")
+const serialUser = createSerial(18)
            try {
                 ppimg = await Hikari.getProfilePicture(`${sender.split('@')[0]}@c.us`)
                 } catch {
                 ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
               }
           veri = sender
-	 addRegisteredUser(sender, ${pushname}, 10000, 10, 1000, 25, serialUser)
+          _registered.push(sender)
+          fs.writeFileSync('./database/user/registered.json', JSON.stringify(_registered))
+          addRegisteredUser(sender, ininama, uangawal, healawal, potionawal, crystalawal, rplimitawal, serialUser)
            const anuu = `「 *PENDAFTARAN USER* 」
 *Terimakasih Sudah Mendaftarkan Diri Dalam Database Bot WhatsApp*
 
-*🌹 Nama :* ${pushname}
+*🌹 Nama :* ${ininama}
 *🌹 API :* +${sender.split('@')[0]}
 *🌹 Serial:* ${serialUser}
+*🌹 Total:* ${_registered.length} Pengguna
 
 *「 ${setting.botName} 」*`
          kariown = await getBuffer(`http://hadi-api.herokuapp.com/api/card/verify?nama=${encodeURI(pushname)}&member=${_registered.length}&seri=${serialUser}&pp=${ppimg}&bg=${ppimg}`)
@@ -5949,15 +5894,8 @@ if (isRegistered) return reply('Akun kamu sudah terverfikasi')
               contentText:`${anuu}`,buttons,headerType:4}
               prep = await Hikari.prepareMessageFromContent(from,{buttonsMessage},{quoted: freply})
               Hikari.relayWAMessage(prep)
-           console.log(color('[REGISTER]'), color(time, 'yellow'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName));
-              } else {
-		      reply('Akun kamu sudah terverfikasi')
-	      } 
-})
-		.catch(() => {
-              reply('Akun kamu sudah terverfikasi')
-            });
-
+           console.log(color('[REGISTER]'), color(time, 'yellow'), 'Serial:', color(serialUser, 'cyan'), 'in', color(sender || groupName))
+      // console.log(e)
         break
 case 'sfire1':{
                 
@@ -6105,9 +6043,7 @@ Hikari.sendMessage(from, { contentText: `${teksnya}`, footerText: `${setting.own
       case 'ovo':
        
        thu = await Hikari.getStatus(`${sender.split('@')[0]}@s.whatsapp.net`, MessageType.text)
-       User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-        if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-        else { 
+if (!isRegistered) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
        menu =` ${ucapanWaktu} Kak ${pushname} 👋
   
  Silahkan Tf Sesuai Nominal Ya Kak!
@@ -6121,27 +6057,23 @@ NOTE* JANGAN LUPA KIRIM BUKTI TRANSFER KEPADA OWNER ATAU KLIK TOMBOL CONFIRM!`
 
 
     Hikari.sendMessage(from, { contentText: `${menu}`, footerText: `${setting.ownerName}`, buttons: [{ buttonId: `${prefix}bukti`, buttonText: { displayText: 'KIRIM BUKTI TF' }, type: 1 },{ buttonId: `${prefix}payment`, buttonText: { displayText: 'GANTI PAYMENT' }, type: 1 } ], headerType: 'LOCATION', locationMessage: { degreesLatitude: '', degreesLongitude: '', jpegThumbnail: Hikariown, contextInfo: {mentionedJid: [sender]}}}, 'buttonsMessage')
-        }})         
-    break
+              break
          
 case 'pulsa':
        
        thu = await Hikari.getStatus(`${sender.split('@')[0]}@s.whatsapp.net`, MessageType.text)
-       User.findOne({nowa: sender.replace('@s.whatsapp.net', '')}).then(async(ak) => {
-        if(ak === undefined || ak === null) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
-        else { 
+if (!isRegistered) return sendButMessage (from, daftar1, daftar2, daftar3, { quoted: freply})
        menu =`${ucapanWaktu} Kak ${pushname} 👋
   
  Untuk melakukan pembayaran menggunakan pulsa silahkan isi kepada nomer di bawah!
  
- xl: ${setting.pulsa}`
+ INDOSAT IM3: ${setting.pulsa}`
 
               
 
 
     Hikari.sendMessage(from, { contentText: `${menu}`, footerText: `${setting.ownerName}`, buttons: [{ buttonId: `${prefix}bukti`, buttonText: { displayText: 'KIRIM BUKTI TF' }, type: 1 },{ buttonId: `${prefix}payment`, buttonText: { displayText: 'GANTI PAYMENT' }, type: 1 } ], headerType: 'LOCATION', locationMessage: { degreesLatitude: '', degreesLongitude: '', jpegThumbnail: Hikariown, contextInfo: {mentionedJid: [sender]}}}, 'buttonsMessage')
-        }})
-     break
+              break
               case 'bukti':
     titid = `
 hai kak ${pushname}
@@ -6253,6 +6185,7 @@ Wa.me/${setting.owner}`
            case 'ytmp3':
            case 'playy':
 case 'lagu':
+if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
 if (args.length < 1) return reply('Judul/Link Nya Mana?')
 ini_link = args.join(" ")
 ini = await fetchJson(`https://api-yogipw.herokuapp.com/api/yt/playmp3?query=${ini_link}`)
@@ -6263,6 +6196,7 @@ Hikari.sendMessage(from, rew, image, { quoted: Arya, caption: ini_txt })
 Hikari.sendMessage(from, res, audio)
 break
       case 'ytmp3ror':
+            if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
             if (args.length < 1) return reply('Link Nya Mana?')
             if(!isUrl(args[0]) && !args[0].includes('youtu')) return reply(mess.error.Iv)
             teks = args.join(' ')
@@ -6286,6 +6220,7 @@ _Silahkan tunggu file media sedang dikirim mungkin butuh beberapa menit_`
 })
             break
             case 'ytmp4':
+if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
             case 'play2':   
 case 'ytmp4':   
           if (args.length < 1) return reply('*Masukan judul nya?*')
@@ -8211,8 +8146,6 @@ break
               mentions(txti, arr, true)
               break
        case 'kickall': // Anti Banned
-		if (!isGroup) return reply('GROUP ONLY')
-if (!isGroupAdmins)return reply('ONLY ADMIN')
               for (let i of groupMembers) {
               await kickMember(from, [i.jid])
 }
@@ -8240,8 +8173,6 @@ if (!isGroupAdmins)return reply('ONLY ADMIN')
 }
              break
       case 'hidetag':
-		if (!isGroup) return reply('GROUP ONLY')
-		if (!isGroupAdmins)return reply('ONLY ADMIN')
              try {
              quotedText = Arya.message.extendedTextMessage.contextInfo.quotedMessage.conversation
              hideTag(from, `${quotedText}`)
@@ -8460,6 +8391,25 @@ if (!isGroupAdmins)return reply('ONLY ADMIN')
                Hikari.sendMessage(from, buffer, image, { quoted: freply, caption: `Profile Picture of @${mberr.split("@")[0]}`, contextInfo: { "mentionedJid": [mberr] }})
 }
                break
+               case 'sfile':
+               if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
+               if (args.length < 1) return reply('Link Nya Mana? ')
+               if(!isUrl(args[0]) && !args[0].includes('sfile')) return reply(mess.error.Iv)
+               reply(mess.wait)
+               teks = args.join(' ')
+               res = await fetchJson(`https://api-xcoders.xyz/api/download/sfile?url=${text}&apikey=ohngA7X9VX`)
+               res1 = res.result
+               result = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
+┆ *sfile DOWNLOAD*
+└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
+*Data Berhasil Didapatkan!*
+\`\`\`🐥 Nama : ${res1.title}\`\`\`
+\`\`\`🐤 Ukuran : ${res1.size}\`\`\`
+\`\`\`🐣 Link : ${res1.url}\`\`\`
+_*Tunggu Proses Upload Media......*_`
+             reply(result)
+             sendFileFromUrl(res1.url, document, {mimetype: res1.mimetype, filename: res1.title, quoted: freply})
+             break
         case 'd':
         case 'del':
         case 'delete': // MR.CYSER
@@ -8828,7 +8778,7 @@ Silahkan @${m.mentionedJid[0].split`@`[0]} untuk ketik terima/tolak`
       case 'infoyt':
              reply(`Jangan Lupa Subscribe Yt Owner Ya : ${setting.ytown}`)
              break
-      case 'lolitagroup':
+      case 'hikarigroup':
              reply(`Ini adalah Group ${setting.botName} \n${setting.gcbot}`)
              break
       
@@ -9437,8 +9387,6 @@ Note: Hati-Hati Saat Sedang Berpetualang, Banyak Rintangan Untuk Anda`
 ➸ *Harga*: 20000 Crystal
 ➸ *Sisa Crystal*: ${userCrystal}
 `)
-premium.addPremiumUser(sender, '30d' , _premium)
-reply(`*「 PENUKARAN BERHASIL 」*\n\n➸ *Player*: ${getReason}\n➸ *Expired*: 30 day\n*Harga*: 20000 Crystal\n*Sisa Crystal*: ${userCrystal}`)
 rplimitAdd(sender, rpliminya)
           break
           }

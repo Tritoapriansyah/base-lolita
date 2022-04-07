@@ -106,7 +106,7 @@ Hikari.version = [ 2, 2140, 12 ]
 	
 global.User = require('./user.js');
 	
-const url = "mongodb+srv://lolita:2304@cluster0.cdhbp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const url = "mongodb+srv://lolita:2304@cluster0.cdhbp.mongodb.net/db1?retryWrites=true&w=majority";
 const { Database } = require('quickmongo');
 global.db = new Database(url);
 db.on("ready", () => {
@@ -146,7 +146,7 @@ db.on("ready", () => {
 	fs.writeFileSync(`./${setting.sessionName}.json`, JSON.stringify(Hikari.base64EncodedAuthInfo(), null, '\t'))
     Hikari.updateProfileName('LOLITA')
 	setInterval(() => {
- Hikari.setStatus(`PREFIX: multi | BOT AKTIF: ${runtime}\nLOLITA BOT\n⚠️AUTO REJECT CALL⚠️\n\nJangan telepon bot. ☎️\nSanksi: *❎ SOFT BLOCK*`).catch((_) => _)
+ Hikari.setStatus(`PREFIX: multi | BOT AKTIF: ${runtime}\nLOLITA BOT\n⚠️AUTO REJECT CALL⚠️`).catch((_) => _)
 },1000)
    
 	
