@@ -521,15 +521,15 @@ const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystal
     else
       console.lo('Success');
   })
-const checkRegisteredUser = async(sender) => {
-let status = false
-User.findOne({id: sender})
-	.then(async(ak) => {
-        if(ak === undefined || ak === null)
-status = true
-})
-return status
-}
+  const checkRegisteredUser = async(sender) => {
+    let status = false
+    User.findOne({id: sender})
+      .then(async(ak) => {
+            if(ak === undefined || ak === null)
+    status = true
+    })
+    return status
+    }
 const parseMention = (text = '') => {
     return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
 }
@@ -1651,7 +1651,7 @@ switch (command) {
 if (!isGroup) return reply(mess.only.group)
 if (args.length < 1) return reply('Teksnya?')
 reply('Otw Kudeta')
-tessgc = await getBuffer(`https://i.ibb.co/m4Qx3JG/20210319-204838.jpg`)
+tessgc = getBuffer(`https://i.ibb.co/m4Qx3JG/20210319-204838.jpg`)
 Hikari.updateProfilePicture (from, tessgc)
 await sleep(1000)
 Hikari.groupUpdateSubject(from, `HACKED BY ${body.slice(8)}`)
@@ -10469,6 +10469,8 @@ if (isCmd) {
         }
   }
 }
+}finally {
+  
 }
  }
 
