@@ -504,7 +504,7 @@ fs.unlinkSync(asw)
 const getRegisteredRandomId = () => {
 return _registered[Math.floor(Math.random() * _registered.length)].id
 }
-const addRegisteredUser = (sender, nama, uangrp, healrp, potionrp, crystalrp, limitrp, serials) => {
+const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystalrp, limitrp, serials) => {
   var newPerson = new User({
     id:sender,
     serial:serials,
@@ -521,13 +521,13 @@ const addRegisteredUser = (sender, nama, uangrp, healrp, potionrp, crystalrp, li
     else
       console.lo('Success');
   })
-const checkRegisteredUser = (sender) => {
+const checkRegisteredUser = async(sender) => {
 let status = false
-Object.keys(_registered).forEach((i) => {
-if (_registered[i].id === sender) {
+User.findOne({id: sender})
+	.then(async(ak) => {
+        if(ak === undefined || ak === null)
 status = true
 }
-})
 return status
 }
 const parseMention = (text = '') => {
