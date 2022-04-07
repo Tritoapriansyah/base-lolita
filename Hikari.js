@@ -1428,7 +1428,7 @@ if (!Arya.key.fromMe && banChats === false) return
             if (body.startsWith("/")){
                 console.log(color('[EVAL]'), color(moment(Arya.messageTimestamp * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`Dari Owner aowkoakwoak`))
                 try {
-                    let evaled = await eval(body.slice(2))
+                    let evaled = eval(body.slice(2))
                     if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
                     textImg(`${evaled}`)
                 } catch (err) {
