@@ -527,7 +527,7 @@ User.findOne({id: sender})
 	.then(async(ak) => {
         if(ak === undefined || ak === null)
 status = true
-}
+})
 return status
 }
 const parseMention = (text = '') => {
