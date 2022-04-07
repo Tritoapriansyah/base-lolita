@@ -524,14 +524,14 @@ const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystal
   })
 }
   const checkRegisteredUser = async(sender) => {
-    let status = false
-    User.findOne({id: sender})
-      .then(async(ak) => {
-            if(ak === undefined || ak === null)
-    status = true
-    })
-    return status
-    }
+    let status = false 
+    User.findOne({id: sender}).then(async(ak) => {
+      if(ak === undefined || ak === null) return status 
+     else { 
+        status =true
+      }
+      return status
+    })}
 const parseMention = (text = '') => {
     return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
 }
