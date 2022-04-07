@@ -539,9 +539,9 @@ newPerson.save(function(err, person){
 	else
 		console.lo('Success');
 });
-const checkRegisteredUser = async(sender) => {
+const checkRegisteredUser = (sender) => {
 let status = false
-await User.findOne({id: sender});
+User.findOne({id: sender});
 status = true
 return status
 }
