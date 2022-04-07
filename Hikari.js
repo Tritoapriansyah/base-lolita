@@ -10460,8 +10460,8 @@ if (isCmd) {
                     }
   } 
 
-  } catch (e) {
-    e = String(e)
+  } catch (err) {
+    e = String(err)
     if (!e.includes("this.isZero")) {
     	if (!e.includes("jid is not defined")) {
     	if (!e.includes("Cannot read properties of undefined (reading 'endsWith')")){
@@ -10469,8 +10469,6 @@ if (isCmd) {
         }
   }
 }
-}finally {
-  
 }
  }
 
