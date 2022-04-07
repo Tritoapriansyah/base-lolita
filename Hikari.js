@@ -1199,7 +1199,7 @@ jawaban = tebakgambar[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var http = randomNomor(100)
 addMonUser(sender, http)
-await reply(`*_🎮 Tebak Gambar  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${http} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakgambar*`)
+reply(`*_🎮 Tebak Gambar  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${http} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakgambar*`)
 delete tebakgambar[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakgambar.json", JSON.stringify(tebakgambar))
 }
@@ -1210,7 +1210,7 @@ for (let i of anjuy){
 if (budy.toLowerCase().includes(i)){
 var htgmp = Math.floor(Math.random() * 20) + 1
 addMonUser(sender, htgmp)
-await reply(`*Jawaban benar*\n*Jawaban :* ${i}\n*Hadiah :* $${htgmp}\n*Jawaban yang blum tertebak :* ${anjuy.length - 1}`)
+reply(`*Jawaban benar*\n*Jawaban :* ${i}\n*Hadiah :* $${htgmp}\n*Jawaban yang blum tertebak :* ${anjuy.length - 1}`)
 var anug = anjuy.indexOf(i)
 anjuy.splice(anug, 1)
 }
@@ -1226,7 +1226,7 @@ jawaban = tebakanime[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmu = randomNomor(100)
 addMonUser(sender, htgmu)
-await reply(`*_🎮 Tebak Anime 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakanime*`)
+reply(`*_🎮 Tebak Anime 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakanime*`)
 delete tebakanime[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakanime.json", JSON.stringify(tebakanime))
 }
@@ -1237,7 +1237,7 @@ jawaban = tebaklagu[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htpl = randomNomor(100)
 addMonUser(sender, htpl)
-await reply(`*_🎮 Tebak Lagu 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htpl} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklagu*`)
+reply(`*_🎮 Tebak Lagu 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htpl} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklagu*`)
 delete tebaklagu[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaklagu.json", JSON.stringify(tebaklagu))
 }
@@ -1248,7 +1248,7 @@ jawaban = tebaktebakan[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htpu = randomNomor(100)
 addMonUser(sender, htpu)
-await reply(`*_🎮 Tebak Tebakan 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htpu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaktebakan*`)
+reply(`*_🎮 Tebak Tebakan 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htpu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaktebakan*`)
 delete tebaktebakan[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaktebakan.json", JSON.stringify(tebaktebakan))
 }
@@ -1259,7 +1259,7 @@ jawaban = kuismath[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htcc = randomNomor(100)
 addMonUser(sender, htcc)
-await reply(`*_🎮 Kuis Matematika  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}kuismath*`)
+reply(`*_🎮 Kuis Matematika  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}kuismath*`)
 delete kuismath[sender.split('@')[0]]
 fs.writeFileSync("./database/kuismath.json", JSON.stringify(kuismath))
 
@@ -1271,7 +1271,7 @@ jawaban = asahotak[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgm = randomNomor(100)
 addMonUser(sender, htgm)
-await reply(`*_🎮 Asah Otak  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgm} 💰_\n\nIngin bermain lagi? kirim *${prefix}asahotak*`)
+reply(`*_🎮 Asah Otak  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgm} 💰_\n\nIngin bermain lagi? kirim *${prefix}asahotak*`)
 delete asahotak[sender.split('@')[0]]
 fs.writeFileSync("./database/asahotak.json", JSON.stringify(asahotak))
 }
@@ -1282,7 +1282,7 @@ jawaban = caklontong[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmi = randomNomor(100)
 addMonUser(sender, htgmi)
-await reply(`*_🎮 Caklontong  ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmi} 💰_\n\nIngin bermain lagi? kirim *${prefix}caklontong*`)
+reply(`*_🎮 Caklontong  ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmi} 💰_\n\nIngin bermain lagi? kirim *${prefix}caklontong*`)
 delete caklontong[sender.split('@')[0]]
 fs.writeFileSync("./database/caklontong.json", JSON.stringify(caklontong))
 }
@@ -1293,7 +1293,7 @@ jawaban = tebakjenaka[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmuu = randomNomor(100)
 addMonUser(sender, htgmuu)
-await reply(`*_🎮 Tebak Jenaka  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmuu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakjenaka*`)
+reply(`*_🎮 Tebak Jenaka  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmuu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakjenaka*`)
 delete tebakjenaka[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakjenaka.json", JSON.stringify(tebakjenaka))
 }
@@ -1304,7 +1304,7 @@ jawaban = tebaklirik[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmii = randomNomor(100)
 addMonUser(sender, htgmii)
-await reply(`*_🎮 Tebak Lirik 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmii} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklirik*`)
+reply(`*_🎮 Tebak Lirik 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmii} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklirik*`)
 delete tebaklirik[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaklirik.json", JSON.stringify(tebaklirik))
 }
@@ -1315,7 +1315,7 @@ jawaban = tebakimia[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmcc = randomNomor(100)
 addMonUser(sender, htgmcc)
-await reply(`*_🎮 Tebak Kimia ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkimia*`)
+reply(`*_🎮 Tebak Kimia ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkimia*`)
 delete tebakimia[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakimia.json", JSON.stringify(tebakimia))
 }
@@ -1326,7 +1326,7 @@ jawaban = tebaksiapaaku[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmk = randomNomor(100)
 addMonUser(sender, htgmk)
-await reply(`*_🎮 Tebak Siapakah Aku  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmk} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaksiapaaku*`)
+reply(`*_🎮 Tebak Siapakah Aku  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmk} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaksiapaaku*`)
 delete tebaksiapaaku[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaksiapaaku.json", JSON.stringify(tebaksiapaaku))
 }
@@ -1337,7 +1337,7 @@ jawaban = tebakbendera[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var html = randomNomor(100)
 addMonUser(sender, html)
-await reply(`*_🎮 Tebak Bendera  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${html} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakbendera*`)
+reply(`*_🎮 Tebak Bendera  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${html} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakbendera*`)
 delete tebakbendera[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakbendera.json", JSON.stringify(tebakbendera))
 }
@@ -1348,7 +1348,7 @@ jawaban = susunkata[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htmp = randomNomor(100)
 addMonUser(sender, htmp)
-await reply(`*_🎮 Susun Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmp} 💰_\n\nIngin bermain lagi? kirim *${prefix}susunkata*`)
+reply(`*_🎮 Susun Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmp} 💰_\n\nIngin bermain lagi? kirim *${prefix}susunkata*`)
 delete susunkata[sender.split('@')[0]]
 fs.writeFileSync("./database/susunkata.json", JSON.stringify(susunkata))
 }
@@ -1359,7 +1359,7 @@ jawaban = tebakata[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htmu = randomNomor(100)
 addMonUser(sender, htmu)
-await reply(`*_🎮 Tebak Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkata*`)
+reply(`*_🎮 Tebak Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkata*`)
 delete tebakata[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakata.json", JSON.stringify(tebakata))
 }
