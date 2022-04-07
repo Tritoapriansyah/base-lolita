@@ -508,13 +508,13 @@ return _registered[Math.floor(Math.random() * _registered.length)].id
 const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystalrp, limitrp, serials) => {
   var newPerson = new User({
     id:sender,
-    serial:serials,
     name:nama,
     uang:uangrp,
     heal:healrp,
     potion:potionrp,
     crystal:crystalrp,
     rplimit:limitrp,
+    serial:serials,
   })
   newPerson.save(function(err, person){
     if(err)
