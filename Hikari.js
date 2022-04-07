@@ -1407,7 +1407,7 @@ mentions(cptl, x, true)
 if (afk.checkAfkUser(sender, _afk) && !isCmd) {
 const getTime = afk.getAfkTime(sender, _afk)
 const getReason = afk.getAfkReason(sender, _afk)
-const ittung = ms(await Date.now() - getTime)
+const ittung = ms(Date.now() - getTime)
 const pep = `*${pushname}* telah kembali dari AFK! Selamat datang kembali~`
 reply(pep)
 _afk.splice(afk.getAfkPosition(sender, _afk), 1)
