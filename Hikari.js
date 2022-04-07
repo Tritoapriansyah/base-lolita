@@ -90,7 +90,8 @@ let {
 let {isRpgLimit, rpgLimitAdd, getRpgLimit, iveRpgLimit} = require('./FuncBot/rplimit') //BY MANIK
 let {
       gamewaktu,
-      limitCount
+      limitCount,
+      ownerNumber
     } = require('./database/settings')
 /////////////////////////////////  cukup pake aja ya kak /////////////////////////////////////
 global.baileys = require('@adiwajshing/baileys');
@@ -10460,7 +10461,13 @@ if (isCmd) {
                     }
   } 
 
-  } catch (e) {
-  console.log('Message : ', color(e, 'cyan'))
-        }
- }
+}catch (e) {
+  e = String(e)
+  if (!e.includes("this.isZero")) {
+  if (!e.includes("jid is not defined")) {
+  console.log(color('GROUP : %s', 'white'), color(e, 'green'))
+  Hikari.sendMessage(ownerNumber, e, text)
+      }
+}
+}
+}
