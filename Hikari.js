@@ -539,12 +539,10 @@ newPerson.save(function(err, person){
 	else
 		console.lo('Success');
 });
-const checkRegisteredUser = (sender) => {
+const checkRegisteredUser = async(sender) => {
 let status = false
 await User.findOne({id: sender});
 status = true
-}
-})
 return status
 }
 const parseMention = (text = '') => {
