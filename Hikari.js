@@ -565,8 +565,12 @@ headerType: 6
 }
 Hikari.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
 }
+const findContact = async (contact) => {
+  let findContact = await User.findOne({ id: contact });
+  return findContact;
+};
 const isJoin = join.includes(sender);
-const isRegistered = checkRegisteredUser(sender)
+const isRegistered = findContact(sender)
 /////< ini Button Text>///////
 const sendButMessage = (id, text1, desc1, but = [], options = {}) => {
 const buttonMessage = {
