@@ -522,6 +522,7 @@ const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystal
     else
       console.lo('Success');
   })
+}
   const checkRegisteredUser = async(sender) => {
     let status = false
     User.findOne({id: sender})
