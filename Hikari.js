@@ -347,7 +347,7 @@ players2.push(t.player2)
 gilir.push(t.gilir)
 }
 const findContact = async (contact) => {
-let findContact = await User.findOne({ nowa: contact });
+let findContact = await User.findOne({ id: contact });
 return findContact;
 };
 const isTTT = isGroup ? idttt.includes(from) : false
@@ -522,15 +522,26 @@ fs.unlinkSync(asw)
 const getRegisteredRandomId = () => {
 return _registered[Math.floor(Math.random() * _registered.length)].id
 }
-const addRegisteredUser = (userid, sender, age, time, serials) => {
-const obj = { id: userid, name: sender, age: age, time: time, serial: serials }
-_registered.push(obj)
-fs.writeFileSync('./database/user/registered.json', JSON.stringify(_registered))
-}
+const addRegisteredUser = (sender, nama, uangrp, healrp, potionrp, crystalrp, limitrp, serials) => {
+var newPerson = new User({
+	id:sender,
+	serial:serials,
+	name:nama,
+	uang:uangrp,
+	heal:healrp,
+	potion:potionrp,
+	crystal:crystalrp,
+	rplimit:limitrp
+});
+newPerson.save(function(err, person){
+	if(err)
+		console.log(err);
+	else
+		console.lo('Success');
+}};
 const checkRegisteredUser = (sender) => {
 let status = false
-Object.keys(_registered).forEach((i) => {
-if (_registered[i].id === sender) {
+await User.findOne({id: sender});
 status = true
 }
 })
@@ -5922,10 +5933,7 @@ Silahkan Pilih Salah Satu!
               reply(txtnyee)
               break
               case 'verify':
-await findContact(sender)
- .then(async (res) => {
-              if (res === null) {
-                await User.create({ nowa: sender });
+if (isRegistered) return reply('Akun kamu sudah terverfikasi')
                 const serialUser = createSerial(18)
            try {
                 ppimg = await Hikari.getProfilePicture(`${sender.split('@')[0]}@c.us`)
@@ -5933,6 +5941,7 @@ await findContact(sender)
                 ppimg = 'https://i0.wp.com/www.gambarunik.id/wp-content/uploads/2019/06/Top-Gambar-Foto-Profil-Kosong-Lucu-Tergokil-.jpg'
               }
           veri = sender
+	 addRegisteredUser(sender, ${pushname}, 10000, 10, 1000, 25, serialUser)
            const anuu = `「 *PENDAFTARAN USER* 」
 *Terimakasih Sudah Mendaftarkan Diri Dalam Database Bot WhatsApp*
 
