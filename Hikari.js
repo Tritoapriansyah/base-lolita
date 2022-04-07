@@ -538,7 +538,7 @@ newPerson.save(function(err, person){
 		console.log(err);
 	else
 		console.lo('Success');
-};
+});
 const checkRegisteredUser = (sender) => {
 let status = false
 await User.findOne({id: sender});
