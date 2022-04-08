@@ -525,8 +525,8 @@ const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystal
 }
 const checkRegisteredUser = (sender) => {
 let status = false
-User.findOne({ id : sender }) .exec((id) => {
-if ( id === sender) {
+User.findOne({id: sender}).then(async(ak) => {
+if(ak === sender ) {
 status = true
 }
 })
