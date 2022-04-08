@@ -525,10 +525,11 @@ const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystal
 }
 const checkRegisteredUser = (sender) => {
 let status = false
-let yuri = User.findOne({ id : sender })
-if ( yuri === sender) {
+User.findOne({ id : sender }) .exec((id) => {
+if ( id === sender) {
 status = true
 }
+})
 return status
 }
 const parseMention = (text = '') => {
