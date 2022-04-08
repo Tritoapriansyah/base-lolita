@@ -523,15 +523,14 @@ const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystal
       console.lo('Success');
   })
 }
-  const checkRegisteredUser = async(sender) => {
-    let status = false 
-    User.findOne({id: sender}).then(async(ak) => {
-      if(ak === undefined || ak === null) return status 
-     else { 
-        status =true
-      }
-      return status
-    })}
+const checkRegisteredUser = (sender) => {
+let status = false
+let yuri = User.findOne({ id : sender })
+if ( yuri === sender) {
+status = true
+}
+return status
+}
 const parseMention = (text = '') => {
     return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
 }
@@ -570,7 +569,7 @@ const findContact = async (contact) => {
   return findContact;
 };
 const isJoin = join.includes(sender);
-const isRegistered = findContact(sender)
+const isRegistered = checkRegisteredUser(sender)
 /////< ini Button Text>///////
 const sendButMessage = (id, text1, desc1, but = [], options = {}) => {
 const buttonMessage = {
