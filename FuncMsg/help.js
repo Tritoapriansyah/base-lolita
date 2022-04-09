@@ -68,7 +68,6 @@ exports.otherMenu = (prefix) => {
 ⚙️ ${prefix}githubstalk *username*
 ⚙️ ${prefix}tiktokstalk *ussername*
 ⚙️ ${prefix}img2url *reply foto*
-⚙️ ${prefix}ytsearch *query*
 
 `
 }
