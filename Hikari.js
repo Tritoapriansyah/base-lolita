@@ -1,5 +1,5 @@
 const { 
-  WAConnection,
+  WAConnection: _WAConnection,
   MessageType,
   Presence,
   MessageOptions,
@@ -20,7 +20,7 @@ const {
         smsg
     } = require('./FuncBot/simple')
 const simple = require('./FuncBot/simple')
-const WAConnection = new WAConnection
+const WAConnection = simple.WAConnection(_WAConnection)
 const moment = require("moment-timezone")
 const speed = require('performance-now')
 const { spawn, exec, execSync } = require("child_process")
@@ -90,8 +90,7 @@ let {
 let {isRpgLimit, rpgLimitAdd, getRpgLimit, iveRpgLimit} = require('./FuncBot/rplimit') //BY MANIK
 let {
       gamewaktu,
-      limitCount,
-      ownerNumber
+      limitCount
     } = require('./database/settings')
 /////////////////////////////////  cukup pake aja ya kak /////////////////////////////////////
 global.baileys = require('@adiwajshing/baileys');
@@ -139,7 +138,7 @@ rplimitawal = '25'//Ini Bonus Daftar RP
 let multipref = false
 let offline = false
 let waktu = Date.now()
-let banChats = false
+let banChats = true
 let lolkey = `${setting.lolkey}`
 
 //===SETTING DATABASE BY MANIK===//
@@ -353,11 +352,11 @@ isPlayer1 = isGroup ? players1.includes(sender) : false
 isPlayer2 = isGroup ? players2.includes(sender) : false
 const isBadword = isGroup ? grupbadword.includes(from) : false
 const isOwner = ownerNumber.includes(senderr)
-const isRegister = User.findOne({id:sender})
+const isRegister = register.includes(sender)
 const isPremium = premium.checkPremiumUser(sender, _premium)
 const isSewa = _sewa.checkSewaGroup(from, sewa)
 const isAfkOn = afk.checkAfkUser(sender, _afk)
-const isBrave = User.findOne({id:sender})
+const isBrave = namerpg.checkNameUser(sender, _name)
 const isLevelingOn = isGroup ? _leveling.includes(from) : false
 const isMuted = isGroup ? mute.includes(from) : false
 const isAntiLink = isGroup ? antilink.includes(from) : false
@@ -505,28 +504,15 @@ fs.unlinkSync(asw)
 const getRegisteredRandomId = () => {
 return _registered[Math.floor(Math.random() * _registered.length)].id
 }
-const addRegisteredUser = async (sender, nama, uangrp, healrp, potionrp, crystalrp, limitrp, serials) => {
-  var newPerson = new User({
-    id:sender,
-    name:nama,
-    uang:uangrp,
-    heal:healrp,
-    potion:potionrp,
-    crystal:crystalrp,
-    rplimit:limitrp,
-    serial:serials,
-  })
-  newPerson.save(function(err, person){
-    if(err)
-      console.log(err);
-    else
-      console.lo('Success');
-  })
+const addRegisteredUser = (userid, sender, age, time, serials) => {
+const obj = { id: userid, name: sender, age: age, time: time, serial: serials }
+_registered.push(obj)
+fs.writeFileSync('./database/user/registered.json', JSON.stringify(_registered))
 }
 const checkRegisteredUser = (sender) => {
 let status = false
-User.findOne({id: sender}).then(async(ak) => {
-if(ak === sender ) {
+Object.keys(_registered).forEach((i) => {
+if (_registered[i].id === sender) {
 status = true
 }
 })
@@ -535,7 +521,7 @@ return status
 const parseMention = (text = '') => {
     return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
 }
-Hikari.chatRead(from)
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -565,10 +551,6 @@ headerType: 6
 }
 Hikari.sendMessage(id, buttonMessages, MessageType.buttonsMessage, options)
 }
-const findContact = async (contact) => {
-  let findContact = await User.findOne({ id: contact });
-  return findContact;
-};
 const isJoin = join.includes(sender);
 const isRegistered = checkRegisteredUser(sender)
 /////< ini Button Text>///////
@@ -786,7 +768,7 @@ const daftar1 = `Hai kak  ${pushname} ${ucapanWaktu} \n\╭◪ *「 DAFTAR DULU 
 ├❏ Nb : Jan Spam Bot!
 ╰───────────────╯ `
 const daftar2 = '```Klik Tombol Di Bawah Untuk Verify```'
-const daftar3 = [{buttonId: `${prefix}verify ${pushname}`,buttonText: {displayText: `⬡ VERIFY `,},type: 1,},]
+const daftar3 = [{buttonId: `${prefix}verify`,buttonText: {displayText: `⬡ VERIFY `,},type: 1,},]
 const nomenu = [{buttonId: `${prefix}menu`,buttonText: {displayText: `⬡ MENU `,},type: 1,},]
 
 ///////< PREMIUM BUTTON BY IKY > ////////
@@ -1254,7 +1236,7 @@ jawaban = kuismath[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htcc = randomNomor(100)
 addMonUser(sender, htcc)
-reply(`*_🎮 Kuis Matematika  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}kuismath*`)
+await reply(`*_🎮 Kuis Matematika  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}kuismath*`)
 delete kuismath[sender.split('@')[0]]
 fs.writeFileSync("./database/kuismath.json", JSON.stringify(kuismath))
 
@@ -1266,7 +1248,7 @@ jawaban = asahotak[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgm = randomNomor(100)
 addMonUser(sender, htgm)
-reply(`*_🎮 Asah Otak  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgm} 💰_\n\nIngin bermain lagi? kirim *${prefix}asahotak*`)
+await reply(`*_🎮 Asah Otak  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgm} 💰_\n\nIngin bermain lagi? kirim *${prefix}asahotak*`)
 delete asahotak[sender.split('@')[0]]
 fs.writeFileSync("./database/asahotak.json", JSON.stringify(asahotak))
 }
@@ -1277,7 +1259,7 @@ jawaban = caklontong[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmi = randomNomor(100)
 addMonUser(sender, htgmi)
-reply(`*_🎮 Caklontong  ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmi} 💰_\n\nIngin bermain lagi? kirim *${prefix}caklontong*`)
+await reply(`*_🎮 Caklontong  ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmi} 💰_\n\nIngin bermain lagi? kirim *${prefix}caklontong*`)
 delete caklontong[sender.split('@')[0]]
 fs.writeFileSync("./database/caklontong.json", JSON.stringify(caklontong))
 }
@@ -1288,7 +1270,7 @@ jawaban = tebakjenaka[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmuu = randomNomor(100)
 addMonUser(sender, htgmuu)
-reply(`*_🎮 Tebak Jenaka  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmuu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakjenaka*`)
+await reply(`*_🎮 Tebak Jenaka  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmuu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakjenaka*`)
 delete tebakjenaka[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakjenaka.json", JSON.stringify(tebakjenaka))
 }
@@ -1299,7 +1281,7 @@ jawaban = tebaklirik[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmii = randomNomor(100)
 addMonUser(sender, htgmii)
-reply(`*_🎮 Tebak Lirik 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmii} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklirik*`)
+await reply(`*_🎮 Tebak Lirik 🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmii} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaklirik*`)
 delete tebaklirik[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaklirik.json", JSON.stringify(tebaklirik))
 }
@@ -1310,7 +1292,7 @@ jawaban = tebakimia[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmcc = randomNomor(100)
 addMonUser(sender, htgmcc)
-reply(`*_🎮 Tebak Kimia ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkimia*`)
+await reply(`*_🎮 Tebak Kimia ??_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmcc} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkimia*`)
 delete tebakimia[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakimia.json", JSON.stringify(tebakimia))
 }
@@ -1321,7 +1303,7 @@ jawaban = tebaksiapaaku[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htgmk = randomNomor(100)
 addMonUser(sender, htgmk)
-reply(`*_🎮 Tebak Siapakah Aku  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmk} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaksiapaaku*`)
+await reply(`*_🎮 Tebak Siapakah Aku  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htgmk} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebaksiapaaku*`)
 delete tebaksiapaaku[sender.split('@')[0]]
 fs.writeFileSync("./database/tebaksiapaaku.json", JSON.stringify(tebaksiapaaku))
 }
@@ -1332,7 +1314,7 @@ jawaban = tebakbendera[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var html = randomNomor(100)
 addMonUser(sender, html)
-reply(`*_🎮 Tebak Bendera  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${html} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakbendera*`)
+await reply(`*_🎮 Tebak Bendera  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${html} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakbendera*`)
 delete tebakbendera[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakbendera.json", JSON.stringify(tebakbendera))
 }
@@ -1343,7 +1325,7 @@ jawaban = susunkata[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htmp = randomNomor(100)
 addMonUser(sender, htmp)
-reply(`*_🎮 Susun Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmp} 💰_\n\nIngin bermain lagi? kirim *${prefix}susunkata*`)
+await reply(`*_🎮 Susun Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmp} 💰_\n\nIngin bermain lagi? kirim *${prefix}susunkata*`)
 delete susunkata[sender.split('@')[0]]
 fs.writeFileSync("./database/susunkata.json", JSON.stringify(susunkata))
 }
@@ -1354,7 +1336,7 @@ jawaban = tebakata[sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
 var htmu = randomNomor(100)
 addMonUser(sender, htmu)
-reply(`*_🎮 Tebak Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkata*`)
+await reply(`*_🎮 Tebak Kata  🎮_*\n\n*●* *Jawaban Benar🎉*\n*●* *Mendapatkan* : _Rp ${htmu} 💰_\n\nIngin bermain lagi? kirim *${prefix}tebakkata*`)
 delete tebakata[sender.split('@')[0]]
 fs.writeFileSync("./database/tebakata.json", JSON.stringify(tebakata))
 }
@@ -1413,7 +1395,7 @@ mentions(cptl, x, true)
 if (afk.checkAfkUser(sender, _afk) && !isCmd) {
 const getTime = afk.getAfkTime(sender, _afk)
 const getReason = afk.getAfkReason(sender, _afk)
-const ittung = ms(Date.now() - getTime)
+const ittung = ms(await Date.now() - getTime)
 const pep = `*${pushname}* telah kembali dari AFK! Selamat datang kembali~`
 reply(pep)
 _afk.splice(afk.getAfkPosition(sender, _afk), 1)
@@ -1434,7 +1416,7 @@ if (!Arya.key.fromMe && banChats === false) return
             if (body.startsWith("/")){
                 console.log(color('[EVAL]'), color(moment(Arya.messageTimestamp * 1000).format('DD/MM/YY HH:mm:ss'), 'yellow'), color(`Dari Owner aowkoakwoak`))
                 try {
-                    let evaled = eval(body.slice(2))
+                    let evaled = await eval(body.slice(2))
                     if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
                     textImg(`${evaled}`)
                 } catch (err) {
@@ -1657,7 +1639,7 @@ switch (command) {
 if (!isGroup) return reply(mess.only.group)
 if (args.length < 1) return reply('Teksnya?')
 reply('Otw Kudeta')
-tessgc = getBuffer(`https://i.ibb.co/m4Qx3JG/20210319-204838.jpg`)
+tessgc = await getBuffer(`https://i.ibb.co/m4Qx3JG/20210319-204838.jpg`)
 Hikari.updateProfilePicture (from, tessgc)
 await sleep(1000)
 Hikari.groupUpdateSubject(from, `HACKED BY ${body.slice(8)}`)
@@ -5872,8 +5854,6 @@ Silahkan Pilih Salah Satu!
               case 'verify':
               
 if (isRegistered) return reply('Akun kamu sudah terverfikasi')
-if (args.length < 1) return reply('nama nya ?')
-ininama = args.join(" ")
 const serialUser = createSerial(18)
            try {
                 ppimg = await Hikari.getProfilePicture(`${sender.split('@')[0]}@c.us`)
@@ -5883,11 +5863,11 @@ const serialUser = createSerial(18)
           veri = sender
           _registered.push(sender)
           fs.writeFileSync('./database/user/registered.json', JSON.stringify(_registered))
-          addRegisteredUser(sender, ininama, uangawal, healawal, potionawal, crystalawal, rplimitawal, serialUser)
+          addRegisteredUser(sender, serialUser)
            const anuu = `「 *PENDAFTARAN USER* 」
 *Terimakasih Sudah Mendaftarkan Diri Dalam Database Bot WhatsApp*
 
-*🌹 Nama :* ${ininama}
+*🌹 Nama :* ${pushname}
 *🌹 API :* +${sender.split('@')[0]}
 *🌹 Serial:* ${serialUser}
 *🌹 Total:* ${_registered.length} Pengguna
@@ -8397,25 +8377,6 @@ break
                Hikari.sendMessage(from, buffer, image, { quoted: freply, caption: `Profile Picture of @${mberr.split("@")[0]}`, contextInfo: { "mentionedJid": [mberr] }})
 }
                break
-               case 'sfile':
-               if (!isPremium) return sendButMessage (from, prem1, prem2, prem3, { quoted: freply})
-               if (args.length < 1) return reply('Link Nya Mana? ')
-               if(!isUrl(args[0]) && !args[0].includes('sfile')) return reply(mess.error.Iv)
-               reply(mess.wait)
-               teks = args.join(' ')
-               res = await fetchJson(`https://api-xcoders.xyz/api/download/sfile?url=${text}&apikey=ohngA7X9VX`)
-               res1 = res.result
-               result = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
-┆ *sfile DOWNLOAD*
-└┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
-*Data Berhasil Didapatkan!*
-\`\`\`🐥 Nama : ${res1.title}\`\`\`
-\`\`\`🐤 Ukuran : ${res1.size}\`\`\`
-\`\`\`🐣 Link : ${res1.url}\`\`\`
-_*Tunggu Proses Upload Media......*_`
-             reply(result)
-             sendFileFromUrl(res1.url, document, {mimetype: res1.mimetype, filename: res1.title, quoted: freply})
-             break
         case 'd':
         case 'del':
         case 'delete': // MR.CYSER
@@ -10466,13 +10427,16 @@ if (isCmd) {
                     }
   } 
 
-}catch (e) {
-  e = String(e)
-  if (!e.includes("this.isZero")) {
-  if (!e.includes("jid is not defined")) {
-  console.log(color('GROUP : %s', 'white'), color(e, 'green'))
-  Hikari.sendMessage(ownerNumber, e, text)
-      }
+  } catch (e) {
+    e = String(e)
+    if (!e.includes("this.isZero")) {
+    	if (!e.includes("jid is not defined")) {
+    	if (!e.includes("Cannot read properties of undefined (reading 'endsWith')")){
+  console.log('Message : %s', color(e, 'cyan'))
+        }
+  }
 }
 }
-}
+ }
+
+ 
