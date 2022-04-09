@@ -135,7 +135,6 @@ Hikari.version = [ 2, 2140, 12 ]
 		timeoutMs: 30 * 1000
 	})
 	fs.writeFileSync(`./${setting.sessionName}.json`, JSON.stringify(Hikari.base64EncodedAuthInfo(), null, '\t'))
-    Hikari.updateProfileName('Fans Manik')
     Hikari.setStatus('Babunya Arya Manik\n⚠️AUTO REJECT CALL⚠️\n\nJangan telepon bot. ☎️\nSanksi: *❎ SOFT BLOCK*')
    
 	
@@ -215,6 +214,13 @@ Hikari.version = [ 2, 2140, 12 ]
     );
     Hikari.copyNForward(m.key.remoteJid, m.message);
   });
+	setInterval(() => {
+ conn.setStatus(`Ｓｔａｔｕｓ Ｂｏｔ:
+› Runtime: ${runtime(process.uptime())}
+› Total register: *${_registered.length}* *User*
+| BY Trito`).catch((_) => _)
+},1000) 
+	
 	Hikari.on('chat-update', async (message) => {
 		require('./Hikari.js')(Hikari, message)
 	})
