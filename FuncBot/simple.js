@@ -6,7 +6,7 @@ const fetch = require('node-fetch')
 const PhoneNumber = require('awesome-phonenumber')
 const { MessageType } = require('@adiwajshing/baileys')
 const { toAudio, toPTT, toVideo } = require('./converter')
-const { WAConnection } = require('@adiwajshing/baileys/lib/WAConnection/0.Base')
+const { WAConnection } = require('@adiwajshing/baileys')
 
 exports.WAConnection = _WAConnection => {
 	class WAConnection extends _WAConnection {
