@@ -833,7 +833,7 @@ reply(`*「 GROUP LINK DETECTOR 」*\n\n Bot Mendeteksi Anda Telah Mengirim Link
 Hikari.groupRemove(from, [sender])
 }
 }
-	let ftroli ={key: {fromMe: false,"participant":"0@s.whatsapp.net",   "remoteJid": "6283842873526-1604595598@g.us"  }, "message": {orderMessage: {itemCount: 10,status: 200, thumbnail: fs.readFileSync(`./gambar/thumb.jpg`), surface: 200, message: `「	LOLITA BOT  」	`, orderTitle: 'deffpratama', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
+	let ftroli ={key: {fromMe: false,"participant":"0@s.whatsapp.net",   "remoteJid": "6283842873526-1604595598@g.us"  }, "message": {orderMessage: {itemCount: 10,status: 200, thumbnail: fs.readFileSync("./media/Hikari.png"), surface: 200, message: `「	LOLITA BOT  」	`, orderTitle: 'deffpratama', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
 
  const reged = createSerial(4)
   if (fs.existsSync('./FuncBot/vote/' + from + '.json') && fs.existsSync('./FuncBot/' + from + '.json') && isGroup) {
