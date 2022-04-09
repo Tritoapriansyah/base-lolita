@@ -8,7 +8,7 @@ const  { Functions } = require('./FuncBot/functions.js');
 const { start } = require('./FuncBot/functionss.js');
 const { color, bgcolor } = require('./FuncBot/color')
 const fs = require("fs-extra")
-let register = JSON.parse(fs.readFileSync('./database/user/registered.json'))
+let _registered = JSON.parse(fs.readFileSync('./database/user/registered.json'))
 
 
 const figlet = require('figlet')
