@@ -833,6 +833,8 @@ reply(`*「 GROUP LINK DETECTOR 」*\n\n Bot Mendeteksi Anda Telah Mengirim Link
 Hikari.groupRemove(from, [sender])
 }
 }
+	let ftroli ={key: {fromMe: false,"participant":"0@s.whatsapp.net",   "remoteJid": "6283842873526-1604595598@g.us"  }, "message": {orderMessage: {itemCount: 10,status: 200, thumbnail: fs.readFileSync(`./gambar/thumb.jpg`), surface: 200, message: `「	LOLITA BOT  」	`, orderTitle: 'deffpratama', sellerJid: '0@s.whatsapp.net'}}, contextInfo: {"forwardingScore":999,"isForwarded":true},sendEphemeral: true}
+
  const reged = createSerial(4)
   if (fs.existsSync('./FuncBot/vote/' + from + '.json') && fs.existsSync('./FuncBot/' + from + '.json') && isGroup) {
     if (budy.toLowerCase() === "vote") {
@@ -2742,7 +2744,22 @@ thumbnail: arganz,
 mediaUrl: "https://youtu.be/KAglIQ3bUls",
 sourceUrl: "https://youtu.be/KAglIQ3bUls"
 }}, quoted: freply} )
-               Hikari.relayWAMessage(prep)
+               Hikari.sendMessage(from, {"contentText": `${menu}`,  "footerText": `By @${setting.ownerName}`,"buttons": [{buttonId: `${prefix}command`, buttonText: {displayText: '⎙Command'}, type: 1},{buttonId: `${prefix}Rules`, buttonText: {displayText: 'S&K Bot'}, type: 1},{buttonId: `${prefix}owner`, buttonText: {displayText: 'Owner'}, type: 1}]
+"headerType": "DOCUMENT", "documentMessage": {
+            "url": "https://mmg.whatsapp.net/d/f/Ano5cGYOFQnC51uJaqGBWiCrSJH1aDCi8-YPQMMb1N1y.enc",
+            "mimetype": "application/vnd.ms-powerpoint",
+            "title": "LolitaBot.ppt", // nama.pdf
+            "fileSha256": "8Xfe3NQDhjwVjR54tkkShLDGrIFKR9QT5EsthPyxDCI=",
+            "fileLength": "999999999999",
+            "pageCount": 999,
+            "mediaKey": "XWv4hcnpGY51qEVSO9+e+q6LYqPR3DbtT4iqS9yKhkI=",
+            "fileName": `${runtime(process.uptime())}`, // file name
+            "fileEncSha256": "NI9ykWUcXKquea4BmH7GgzhMb3pAeqqwE+MTFbH/Wk8=",
+            "directPath": "/v/t62.7119-24/35160407_568282564396101_3119299043264875885_n.enc?ccb=11-4&oh=d43befa9a76b69d757877c3d430a0752&oe=61915CEC",
+            "mediaKeyTimestamp": "1634472176",
+            "jpegThumbnail": arganz,
+  }}, MessageType.buttonsMessage,{ quoted: ftroli, sendEphemeral: true, contextInfo:{"forwardingScore":999,"isForwarded":true, "externalAdReply":{"title": `Hai Kak ${pushname}`, "body": `Lolita Botz`, mediaType: 2, "thumbnailUrl": "https://cdn-image.hipwee.com/wp-content/uploads/2021/03/hipwee-gojo_satoru_by_chuutadesu_deb0dr7-fullview-750x422.jpg","previewType": "VIDEO","mediaUrl": `https://youtu.be/dQw4w9WgXcQ`}}})
+  break
                break
                
 case 'f':
