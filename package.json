@@ -9,7 +9,7 @@
   },
   "author": "Manik",
   "dependencies": {
-    "@adiwajshing/baileys": "^3.5.0",
+    "@adiwajshing/baileys": "^4.1.0",
     "@vitalets/google-translate-api": "^7.0.0",
     "awesome-phonenumber": "^2.69.0",
     "axios": "^0.21.1",
