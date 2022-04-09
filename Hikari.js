@@ -1,5 +1,5 @@
 const { 
-  WAConnection: _WAConnection,
+  WAConnection,
   MessageType,
   Presence,
   MessageOptions,
@@ -20,7 +20,7 @@ const {
         smsg
     } = require('./FuncBot/simple')
 const simple = require('./FuncBot/simple')
-const WAConnection = simple.WAConnection(_WAConnection)
+const WAConnection = new WAConnection
 const moment = require("moment-timezone")
 const speed = require('performance-now')
 const { spawn, exec, execSync } = require("child_process")
