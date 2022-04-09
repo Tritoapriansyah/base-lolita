@@ -2356,7 +2356,7 @@ break
                     reply(`Penggunaan ${command} @tag`)
                 }
                  break
-case 'bokep': case 'bkp': case 'randombokep':{
+/*case 'bokep': case 'bkp': case 'randombokep':{
 if (!isPremium) return reply(mess.OnlyPrem)
 
 fetchJson(`https://pastebin.com/raw/k82VJzeP`).then((data) => {
@@ -2365,7 +2365,7 @@ fetchJson(`https://pastebin.com/raw/k82VJzeP`).then((data) => {
     textImg(bokep2.teks)
 })
 }
-break
+break*/
 ////Anti delete
 case 'antidelete':
                 if (!isOwner && !isGroupAdmins) return reply(mess.only.groupAdmin)
@@ -3111,7 +3111,7 @@ ${readmore}
 ● ${prefix}sourcecode
 ● ${prefix}bugreport *keluhan*
 
-[PORN MENU
+[PORN MENU <delete>
 ● ${prefix}bkp *random*
 ● ${prefix}bokep1
 ● ${prefix}bokep2
@@ -4909,7 +4909,7 @@ case 'pornmenu':
           },]);
         break;
    //addfiturbokep
-case 'bokep1':         
+/*case 'bokep1':         
             
         qute = fs.readFileSync('media/bot.jpeg') 
            Hikari.sendMessage(from,  '*SEMOGA DI BERI HIDAYAH*\nLink Download \n\nhttps://www.mediafire.com/file/h2nygxbyb6n9cyo/VID-20210107-WA1468.mp4/file' , text, {quoted: freply})
@@ -5026,7 +5026,7 @@ case 'bokep1':
            break
            
      
-break
+break*/
    case 'islammenu':
         case  'islamimenu':
               
