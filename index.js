@@ -8,6 +8,7 @@ const  { Functions } = require('./FuncBot/functions.js');
 const { start } = require('./FuncBot/functionss.js');
 const { color, bgcolor } = require('./FuncBot/color')
 const fs = require("fs-extra")
+let register = JSON.parse(fs.readFileSync('./database/user/registered.json'))
 
 
 const figlet = require('figlet')
@@ -135,7 +136,12 @@ Hikari.version = [ 2, 2140, 12 ]
 		timeoutMs: 30 * 1000
 	})
 	fs.writeFileSync(`./${setting.sessionName}.json`, JSON.stringify(Hikari.base64EncodedAuthInfo(), null, '\t'))
-    Hikari.setStatus('Babunya Arya Manik\n⚠️AUTO REJECT CALL⚠️\n\nJangan telepon bot. ☎️\nSanksi: *❎ SOFT BLOCK*')
+    	setInterval(() => {
+ Hikari.setStatus(`Ｓｔａｔｕｓ Ｂｏｔ:
+› Runtime: ${runtime(process.uptime())}
+› Total register: *${_registered.length}* *User*
+| BY Trito`).catch((_) => _)
+},1000)
    
 	
 	//AutoRejectCallFunction
@@ -213,13 +219,7 @@ Hikari.version = [ 2, 2140, 12 ]
       { quoted: m.message, contextInfo: { mentionedJid: [m.participant] } }
     );
     Hikari.copyNForward(m.key.remoteJid, m.message);
-  });
-	setInterval(() => {
- conn.setStatus(`Ｓｔａｔｕｓ Ｂｏｔ:
-› Runtime: ${runtime(process.uptime())}
-› Total register: *${_registered.length}* *User*
-| BY Trito`).catch((_) => _)
-},1000) 
+  }); 
 	
 	Hikari.on('chat-update', async (message) => {
 		require('./Hikari.js')(Hikari, message)
