@@ -32,7 +32,6 @@ const fetch = require('node-fetch');
 const ggs = require('google-it')
 const request = require('request');
 const crypto = require('crypto')
-const yts = require( 'yt-search')
 const ms = require('parse-ms')
 const toMs = require('ms')
 const axios = require("axios")
@@ -6826,22 +6825,22 @@ break
           case 'play':
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////if (!isRegister) return reply(`You are not verified\n\nReply this chat and send bot password\n\nHint : \nPassword contains 4 digit number\nCheck password at: https://Hikari.github.io`)
               if (!q) return reply('Linknya?')
-       res = await yts(q)
+       res = await fetchJson(`https://api-xcoders.xyz/api/search/youtube?query=${q}&apikey=ohngA7X9VX`)
          let thumbInfo = ` 
 *Youtube Download*
- *🐥 Judul :* ${res.all[0].title}
- *🐣 ID Video :* ${res.all[0].videoId}
- *🐤 Diupload Pada :* ${res.all[0].ago}
- *🐥 Views :* ${res.all[0].views}
- *🐣 Durasi :* ${res.all[0].timestamp}
- *🐤 Channel :* ${res.all[0].author.name}
- *🔗 Link Channel :* ${res.all[0].author.url}
+ *🐥 Judul :* ${res.result.title}
+ *🐣 ID Video :* ${res.result.videoId}
+ *🐤 Diupload Pada :* ${res.result.thumbnail}
+ *🐥 Views :* ${res.result.views}
+ *🐣 Durasi :* ${res.result.duration}
+ *🐤 Channel :* ${res.result.author.name}
+ *🔗 Link Channel :* ${res.result.author.url}
 
 *Silahkan pilih media yang akan di download*
 `
 buttons = [{buttonId:`${prefix}play2 ${q}`,buttonText:{displayText:'🎥VIDEO'},type:1},{buttonId:`${prefix}playy ${q}`,buttonText:{displayText:'🎵AUDIO'},type:1}]
 
-imageMessage = (await Hikari.prepareMessageMedia({url:res.all[0].image},'imageMessage',{thumbnail:Buffer.alloc(0)})).imageMessage
+imageMessage = (await Hikari.prepareMessageMedia({url:res.resukt.thumbnail},'imageMessage',{thumbnail:Buffer.alloc(0)})).imageMessage
 
 buttonsMessage = {contentText: thumbInfo,footerText:'Silahkan Pilih Jenis File Dibawah Ini',imageMessage,buttons,headerType:4}
 
@@ -6930,17 +6929,17 @@ teks += `\`\`\`?? Title : ${get_result[i].title}\`\`\`
               if (!q) return reply(mess.wrongFormat)
               reply(mess.wait)
               try {
-              res = await yts(q)
+              res = await fetchJson(`https://api-xcoders.xyz/api/search/youtube?query=${q}&apikey=ohngA7X9VX`)
               a = `┏┉⌣ ┈̥-̶̯͡..̷̴✽̶┄┈┈┈┈┈┈┈┈┈┈┉┓
 ┆ *YOUTUBE SEARCH*
 └┈┈┈┈┈┈┈┈┈┈┈⌣ ┈̥-̶̯͡..̷̴✽̶⌣ ✽̶
 
 *Data Berhasil Didapatkan!*\n`
-for (let i of res.all) {
+for (let i of res.result) {
 a += `\`\`\`🐣 Title : ${i.title}\`\`\`
 \`\`\`🐤 Views : ${i.views}\`\`\`
-\`\`\`?? Upload : ${i.ago}\`\`\`
-\`\`\`?? Durasi : ${i.timestamp}\`\`\`
+\`\`\`?? Upload : ${i.published_at}\`\`\`
+\`\`\`?? Durasi : ${i.duration}\`\`\`
 \`\`\`🐤 Channel : ${i.author.name}\`\`\`
 \`\`\`🔗 Link : ${i.url}\`\`\``
 }
