@@ -2,7 +2,6 @@ const fs = require('fs')
 const fetch = require('node-fetch');
 const util = require('util');
 const cheerio = require('cheerio') ;
-const ytSearch = require('yt-search');
 const googleSearch = require('google-it')
 const FileType = require('file-type');
 const spin = require('spinnies');
@@ -34,7 +33,6 @@ this.fetch = fetch;
 this.axios = axios;
 this.util = util;
 this.FileType = FileType;
-this.ytSearch = ytSearch;
 this.chalk = chalk;
 this.animate = new spin();
 }
